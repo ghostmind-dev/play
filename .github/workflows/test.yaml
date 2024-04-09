@@ -9,4 +9,15 @@ jobs:
     steps:
       - name: "Check out repository"
         uses: actions/checkout@v3
-  
+      - name: "Install dependencies"
+        run: npm install  
+      - name: "Build"
+        run: npm run build
+      - name: "Test dev mode"
+        uses: ./
+        with:
+          dev: ${{ github.event.inputs.LIVE }}
+      - name: "Test prod mode"
+        uses: ./
+        with:
+          dev: false    

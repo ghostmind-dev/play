@@ -1,7 +1,7 @@
 name: "Install Run utils"
 description: "Install Run utils"
 inputs:
-  dev-mode:
+  dev:
     description: "Set to tru to run in dev mode"
     required: false
 runs:

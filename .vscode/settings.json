@@ -1,23 +1,34 @@
 {
   "files.exclude": {
-    "**/.gitignore": false,
-    "**/.git": false,
-    "**/.terraform": false,
-    "**/.tfstate": false,
-    "**/.npmrc": false,
-    "**/dev/dvc-command": false,
-    "**/.env.backup": false,
-    "**/.dockerignore": false,
-    "**/dvc-command": false,
-    "**/gha**": false,
-    "**/package-lock.json": false,
-    "**/node_modules": false,
-    "**/__pycache__": false,
-    "**/.next": false,
-    "**/dist": false
+    "**/.gitignore": true,
+    "**/.git": true,
+    "**/.terraform": true,
+    "**/.tfstate": true,
+    "**/.npmrc": true,
+    "**/dev/dvc-command": true,
+    "**/.env.backup": true,
+    "**/.dockerignore": true,
+    "**/dvc-command": true,
+    "**/gha**": true,
+    "**/package-lock.json": true,
+    "**/node_modules": true,
+    "**/__pycache__": true,
+    "**/.next": true,
+    "**/dist": true
   },
   "files.associations": {
     "*.json": "jsonc"
   },
-  "terminal.integrated.defaultProfile.linux": "zsh"
+  "files.autoSave": "off",
+  "editor.formatOnSave": true,
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "prettier.singleQuote": true,
+  "deno.unstable": true,
+  "deno.lint": true,
+  "deno.cacheOnSave": true,
+  "deno.path": "/deno/bin/deno",
+  "deno.cache": "/deno/.cache",
+  "deno.config": "/home/vscode/deno.json",
+  "deno.disablePaths": ["src"],
+  "deno.enable": true
 }
