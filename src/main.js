@@ -14,8 +14,6 @@ async function run() {
     return;
   }
 
-  await $`echo "Hello World"`;
-
   await $`echo $HOME`;
 
   console.log('HOME', process.env.HOME);

@@ -9,8 +9,12 @@ jobs:
     steps:
       - name: "Check out repository"
         uses: actions/checkout@v3
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: canary
       - name: "Install dependencies"
         run: npm install  
+        if: ${{ github.event.inputs.LIVE != 'true'}}
       - name: "Build"
         run: npm run build
       - name: "Test dev mode"

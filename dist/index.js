@@ -46649,6 +46649,10 @@ async function run() {
   await core_$`echo "Hello World"`;
 
   await core_$`echo $HOME`;
+
+  console.log('HOME', process.env.HOME);
+
+  core.debug(process.env.HOME);
 }
 
 run();
