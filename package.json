@@ -1,0 +1,21 @@
+{
+  "name": "play",
+  "type": "module",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "ncc build src/main.js -o dist"
+  },
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@vercel/ncc": "^0.38.1"
+  },
+  "devDependencies": {
+    "@ghostmind-dev/run": "latest",
+    "dotenv": "^16.0.2",
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21",
+    "prefix": "^1.0.0",
+    "zx": "^7.0.8"
+  }
+}

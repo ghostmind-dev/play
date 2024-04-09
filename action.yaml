@@ -1,0 +1,9 @@
+name: "Install Run utils"
+description: "Install Run utils"
+inputs:
+  dev-mode:
+    description: "Set to tru to run in dev mode"
+    required: false
+runs:
+  using: "node16"
+  main: "dist/index.js"

@@ -1,0 +1,7 @@
+{
+  "id": "2kPHWEkSk0xp",
+  "type": "project",
+  "name": "detect",
+  "secrets": true,
+  "scope": "global"
+}
