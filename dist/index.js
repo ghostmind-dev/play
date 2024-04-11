@@ -46637,22 +46637,20 @@ function quiet(promise) {
 async function run() {
   const devMode = core.getInput('dev');
 
+  const HOME = process.env.HOME;
+
   core_$.verbose = true;
 
-  console.log('devMode:', devMode);
+  await core_$`rm -rf ${HOME}/run`;
 
   if (devMode === 'true') {
-    console.log('Running in dev mode');
-    return;
+    await core_$`deno install --allow-all --force --name run dev/run/bin/cmd.ts`;
+  } else {
+    await core_$`git clone https://github.com/ghostmind-dev/run.git ${HOME}/run`;
+    await core_$`deno install --allow-all --force --name run ${HOME}/run/run/bin/cmd.ts`;
   }
 
-  await core_$`echo "Hello World"`;
-
-  await core_$`echo $HOME`;
-
-  console.log('HOME', process.env.HOME);
-
-  core.debug(process.env.HOME);
+  await core_$`echo "${HOME}/.deno/bin" >> $GITHUB_PATH`;
 }
 
 run();

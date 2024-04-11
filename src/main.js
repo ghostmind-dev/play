@@ -5,20 +5,20 @@ import { $ } from 'zx';
 async function run() {
   const devMode = core.getInput('dev');
 
+  const HOME = process.env.HOME;
+
   $.verbose = true;
 
-  console.log('devMode:', devMode);
+  await $`rm -rf ${HOME}/run`;
 
   if (devMode === 'true') {
-    console.log('Running in dev mode');
-    return;
+    await $`deno install --allow-all --force --name run dev/run/bin/cmd.ts`;
+  } else {
+    await $`git clone https://github.com/ghostmind-dev/run.git ${HOME}/run`;
+    await $`deno install --allow-all --force --name run ${HOME}/run/run/bin/cmd.ts`;
   }
 
-  await $`echo $HOME`;
-
-  console.log('HOME', process.env.HOME);
-
-  core.debug(process.env.HOME);
+  await $`echo "${HOME}/.deno/bin" >> $GITHUB_PATH`;
 }
 
 run();

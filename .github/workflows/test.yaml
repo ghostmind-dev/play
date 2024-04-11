@@ -21,7 +21,9 @@ jobs:
         uses: ./
         with:
           dev: ${{ github.event.inputs.LIVE }}
-      - name: "Test prod mode"
+      - run: run
+      - name: "Test published mode"
         uses: ./
         with:
-          dev: false    
+          dev: false
+      - run: run

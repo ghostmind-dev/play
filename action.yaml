@@ -4,6 +4,7 @@ inputs:
   dev:
     description: "Set to tru to run in dev mode"
     required: false
+    default: "false"
 runs:
   using: "node16"
   main: "dist/index.js"
