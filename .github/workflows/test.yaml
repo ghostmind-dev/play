@@ -20,8 +20,9 @@ jobs:
       - name: "Test dev mode"
         uses: ./
         with:
-          dev: ${{ github.event.inputs.LIVE }}
+          dev: ${{ github.event.inputs.LOCAL }}
       - run: run
+      - run: $HOME/run/run/bin/cmd.ts
       - name: "Test published mode"
         uses: ./
         with:

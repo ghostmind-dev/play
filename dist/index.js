@@ -46645,7 +46645,11 @@ async function run() {
 
   if (devMode === 'true') {
     await core_$`deno install --allow-all --force --name run dev/run/bin/cmd.ts`;
+    // symlink tp dev/run to $HOME/run
+    await core_$`rm -rf ${HOME}/run`;
+    await core_$`cp dev ${HOME}/run -r`;
   } else {
+    await core_$`rm -rf ${HOME}/run`;
     await core_$`git clone https://github.com/ghostmind-dev/run.git ${HOME}/run`;
     await core_$`deno install --allow-all --force --name run ${HOME}/run/run/bin/cmd.ts`;
   }
