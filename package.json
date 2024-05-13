@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "build": "ncc build src/main.js -o dist"
+    "build": "bun build ./src/main.ts --outdir ./dist --target node",
+    "watch": "bun build ./src/main.ts --outdir ./dist --target node --watch"
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
