@@ -1,0 +1,12 @@
+{
+  "name": "play",
+  "type": "module",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "ncc build src/main.js -o dist"
+  },
+  "dependencies": {
+    "zx": "^8.0.2"
+  }
+}

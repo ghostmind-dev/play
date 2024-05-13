@@ -1,0 +1,24 @@
+name: live
+on:
+  workflow_dispatch:
+env:
+  SRC: ${{github.workspace}}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  VAULT_ROOT_TOKEN: ${{ secrets.VAULT_ROOT_TOKEN }}
+  VAULT_ADDR: ${{ secrets.VAULT_ADDR}}
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out repository"
+        uses: actions/checkout@v3
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: canary
+      - name: "install run utils"
+        uses: ./play/live
+        with:
+          dev: ${{ github.event.inputs.LOCAL }}
+      - name: "verify run utils"
+        run: run
+   
