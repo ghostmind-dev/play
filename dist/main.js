@@ -40124,7 +40124,7 @@ var require_build = __commonJS((exports, module) => {
   var import_util = require_util8();
 });
 
-// src/main.ts
+// main.ts
 var core = __toESM(require_core(), 1);
 
 // node_modules/zx/build/deno.js
@@ -40179,7 +40179,7 @@ var {
   updateArgv
 } = await Promise.resolve().then(() => __toESM(require_build(), 1));
 
-// src/main.ts
+// main.ts
 async function run() {
   const devMode = core.default.getInput("dev");
   const HOME = process.env.HOME;
