@@ -40190,9 +40190,7 @@ async function run() {
     await $`rm -rf ${HOME}/run`;
     await $`cp dev ${HOME}/run -r`;
   } else {
-    await $`rm -rf ${HOME}/run`;
-    await $`git clone https://github.com/ghostmind-dev/run.git ${HOME}/run`;
-    await $`deno install --allow-all --force --name run ${HOME}/run/run/bin/cmd.ts`;
+    await $`deno install --allow-all  --force --global --name run jsr:@ghostmind/run/cmd`;
   }
   await $`echo "${HOME}/.deno/bin" >> $GITHUB_PATH`;
 }

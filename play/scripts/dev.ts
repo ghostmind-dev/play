@@ -5,22 +5,18 @@ export default async function (arg: CustomArgs, opts: CustomOptions) {
 
   $.verbose = true;
 
-  const { has, cmd } = utils;
+  const { start } = utils;
 
   cd(`${currentPath}/action`);
 
-  const watch = cmd`bun build ./src/main.ts --outdir ./dist --target node --watch`;
-  const instructions = 'run action local test';
-  const act = cmd`nodemon --watch ./dist --exec ${instructions}`;
-  const install = cmd`bun install`;
+  const action = 'run action local test';
 
-  if (has('install')) await $`${install}`;
+  const config = {
+    commands: {
+      act: `nodemon --watch ./dist --exec ${action}`,
+      watch: `bun build ./src/main.ts --outdir ./dist --target node --watch`,
+    },
+  };
 
-  if (has('watch')) await $`${watch}`;
-
-  if (has('act')) await $`${act}`;
-
-  if (has('all')) {
-    await await Promise.all([$`${watch}`, $`${act}`]);
-  }
+  await start(config);
 }

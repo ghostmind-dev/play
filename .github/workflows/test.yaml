@@ -21,13 +21,13 @@ jobs:
           npm run build
         working-directory: play
         if: ${{ github.event.inputs.LOCAL != 'true' }}
-      - name: "Test dev mode"
+      - name: "testing dev mode"
         uses: ./
         with:
           dev: ${{ github.event.inputs.LOCAL }}
       - run: run
       - run: $HOME/run/run/bin/cmd.ts
-      - name: "Test published mode"
+      - name: "testing published mode"
         uses: ./
         with:
           dev: false
