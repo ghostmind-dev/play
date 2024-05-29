@@ -1,22 +1,32 @@
 import { $, cd } from 'npm:zx';
+import type { CustomArgs, CustomOptions } from 'jsr:@ghostmind/run';
 
-export default async function (arg: CustomArgs, opts: CustomOptions) {
-  const { utils, currentPath } = opts;
+export default async function (_arg: CustomArgs, opts: CustomOptions) {
+  const { utils } = opts;
 
   $.verbose = true;
 
   const { start } = utils;
 
-  cd(`${currentPath}/action`);
-
-  const action = 'run action local test';
-
-  const config = {
+  await start({
     commands: {
-      act: `nodemon --watch ./dist --exec ${action}`,
+      act: {
+        command: 'nodemon --watch ./dist --exec ${action}',
+        variables: {
+          action: `run action local test`,
+        },
+      },
       watch: `bun build ./src/main.ts --outdir ./dist --target node --watch`,
+      trampoline: {
+        fonction: async (options: any) => {
+          await $`echo "trampoline"`;
+          console.log('trampoline', options);
+        },
+        options: {
+          watch: true,
+        },
+      },
+      path: 'cat meta.json',
     },
-  };
-
-  await start(config);
+  });
 }
