@@ -1,0 +1,10 @@
+name: "Install Run utils"
+description: "Install Run utils"
+inputs:
+  login:
+    description: "Set to tru to run in dev mode"
+    required: false
+    default: "true"
+runs:
+  using: "node20"
+  main: "app/dist/main.js"
