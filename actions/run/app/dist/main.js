@@ -40180,26 +40180,20 @@ var {
 } = await Promise.resolve().then(() => __toESM(require_build(), 1));
 
 // src/main.ts
-async function play() {
-  const login = core.default.getInput("login");
-  const service_account_key = core.default.getInput("service_account_key");
-  const docker_auth = core.default.getInput("docker_auth");
-  const gcp_project_name = core.default.getInput("gcp_project_name");
+async function run() {
+  const devMode = core.default.getInput("dev");
   const HOME = process.env.HOME;
-  const SRC = process.env.SRC;
   $.verbose = true;
-  await $`apt-get update`;
-  await $`curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg`;
-  await $`echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list`;
-  await $`apt-get update && apt-get install -y google-cloud-cli`;
-  if (login === "true") {
-    const GCP_SERVICE_ACCOUNT_ADMIN = service_account_key || process.env.GCP_SERVICE_ACCOUNT_ADMIN;
-    const GCP_PROJECT_NAME = gcp_project_name || process.env.GCP_PROJECT_NAME;
-    await $`echo ${GCP_SERVICE_ACCOUNT_ADMIN} | base64 -di -w 0 >/tmp/gsa_key.json`;
-    await $`gcloud auth activate-service-account --key-file="/tmp/gsa_key.json"`;
-    await $`gcloud config set project ${GCP_PROJECT_NAME}`;
-    await $`gcloud config set compute/zone us-central1-b`;
-    await $`gcloud auth configure-docker gcr.io --quiet`;
+  await $`rm -rf ${HOME}/run`;
+  if (devMode === "true") {
+    await $`deno install --allow-all --force --name run dev/run/bin/cmd.ts`;
+    await $`rm -rf ${HOME}/run`;
+    await $`cp dev ${HOME}/run -r`;
+  } else {
+    await $`rm -rf ${HOME}/run`;
+    await $`git clone https://github.com/ghostmind-dev/run.git ${HOME}/run`;
+    await $`deno install --allow-all --force --global --name run ${HOME}/run/run/bin/cmd.ts`;
   }
+  await $`echo "${HOME}/.deno/bin" >> $GITHUB_PATH`;
 }
-play();
+run();

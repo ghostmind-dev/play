@@ -1,5 +1,5 @@
 {
-  "name": "gcloud",
+  "name": "run",
   "type": "module",
   "description": "",
   "main": "main.js",

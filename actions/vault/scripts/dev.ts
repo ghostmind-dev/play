@@ -1,17 +1,17 @@
 import { cd } from 'npm:zx';
 import type { CustomArgs, CustomOptions } from 'jsr:@ghostmind/run';
 
-export default async function (arg: CustomArgs, opts: CustomOptions) {
+export default async function (_arg: CustomArgs, opts: CustomOptions) {
   const { start, currentPath } = opts;
 
-  cd(`${currentPath}/action`);
+  cd(`${currentPath}/app`);
 
   await start({
     act: {
       command:
         'nodemon --watch ./dist --watch ${workflows} --ext yaml,js  --exec ${action}',
       variables: {
-        action: `run action local ${arg} -W --no-reuse`,
+        action: `run action local vault -W --no-reuse`,
         workflows: `${Deno.env.get('SRC')}/.github/workflows`,
       },
     },

@@ -1,10 +1,10 @@
 name: "Install Run utils"
 description: "Install Run utils"
 inputs:
-  dev:
-    description: "Set to tru to run in dev mode"
+  dev_mode:
+    description: "Set to true to run in dev mode"
     required: false
     default: "false"
 runs:
   using: "node20"
-  main: "play/action/dist/main.js"
+  main: "app/dist/main.js"

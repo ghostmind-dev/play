@@ -1,10 +1,16 @@
-name: "Install Run utils"
-description: "Install Run utils"
+name: "gcloud"
+description: "install gcloud and login"
 inputs:
   login:
-    description: "Set to tru to run in dev mode"
+    description: "login to glcoud"
     required: false
     default: "true"
+  service_account_key: 
+    description: "service account key to login to gcloud"
+    required: false 
+  docker_auth: 
+    description: "docker auth to login to gcloud"
+    required: false
 runs:
   using: "node20"
   main: "app/dist/main.js"
