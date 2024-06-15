@@ -1,0 +1,5 @@
+name: "hasura"
+description: "install hasura cli"
+runs:
+  using: "node20"
+  main: "app/dist/main.js"

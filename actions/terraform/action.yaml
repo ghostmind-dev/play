@@ -1,0 +1,10 @@
+name: "terraform"
+description: "install terraform and login"
+inputs:
+  version:
+    description: "lterraform version"
+    required: true
+
+runs:
+  using: "node20"
+  main: "app/dist/main.js"

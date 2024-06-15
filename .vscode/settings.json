@@ -36,7 +36,9 @@
   "deno.disablePaths": [
     "/workspaces/play/actions/gcloud/app/src",
     "/workspaces/play/actions/run/app/src",
-    "/workspaces/play/actions/vault/app/src"
+    "/workspaces/play/actions/vault/app/src",
+    "/workspaces/play/actions/terraform/app/src",
+    "/workspaces/play/actions/hasura/app/src"
   ],
   "vsicons.associations.folders": [
     { "icon": "app", "extensions": ["play"], "format": "svg" },
@@ -47,7 +49,9 @@
     { "icon": "e2e", "extensions": ["workflows"], "format": "svg" },
     { "icon": "cubit", "extensions": ["library-scripts"], "format": "svg" },
     { "icon": "buildkite", "extensions": ["gcloud"], "format": "svg" },
+    { "icon": "buildkite", "extensions": ["hasura"], "format": "svg" },
     { "icon": "buildkite", "extensions": ["run"], "format": "svg" },
+    { "icon": "buildkite", "extensions": ["terraform"], "format": "svg" },
     { "icon": "buildkite", "extensions": ["vault"], "format": "svg" }
   ],
   "vsicons.associations.files": [
@@ -60,5 +64,11 @@
   "python.analysis.diagnosticSeverityOverrides": {
     "reportMissingImports": "none",
     "reportMissingModuleSource": "none"
-  }
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["**/meta.json"],
+      "url": "https://raw.githubusercontent.com/ghostmind-dev/config/main/config/meta/schema.json"
+    }
+  ]
 }
