@@ -1,0 +1,16 @@
+name: "vault"
+description: "install vault and login"
+inputs:
+  login:
+    description: "login to vault"
+    required: false
+    default: "true"
+  token: 
+    description: "token to login to vault"
+    required: false
+  addr: 
+    description: "address of vault"
+    required: false
+runs:
+  using: "node20"
+  main: "app/dist/main.js"
