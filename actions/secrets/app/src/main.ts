@@ -27,6 +27,10 @@ export async function verifyIfMetaJsonExists(
   path: string
 ): Promise<MetaJson | undefined> {
   try {
+    console.log('path', path);
+
+    await $`ls -la ${path}`;
+
     await fs.access(`${path}/meta.json`);
     let metaconfig = fs.readJsonSync(`${path}/meta.json`);
 
@@ -105,6 +109,7 @@ export async function verifyIfMetaJsonExists(
 
     return updatedMetaConfigAction(envReplacedUpdatedConfig);
   } catch (error) {
+    console.log('This part has an error', error);
     return undefined;
   }
 }
