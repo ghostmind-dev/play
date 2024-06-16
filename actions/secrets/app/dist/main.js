@@ -42712,6 +42712,8 @@ var $expand = expand;
 import {readFileSync} from "fs";
 async function verifyIfMetaJsonExists(path3) {
   try {
+    console.log("path", path3);
+    await $`ls -la ${path3}`;
     await import_fs_extra.default.access(`${path3}/meta.json`);
     let metaconfig = import_fs_extra.default.readJsonSync(`${path3}/meta.json`);
     const replaceEnvVariables = (obj) => {
@@ -42723,7 +42725,7 @@ async function verifyIfMetaJsonExists(path3) {
             for (let match of matches) {
               const envVariable = match.replace("${", "").replace("}", "");
               if (!envVariable.includes("this.")) {
-                updatedMetaConfig[key] = updatedMetaConfig[key].replace(match, proccess.env[envVariable]);
+                updatedMetaConfig[key] = updatedMetaConfig[key].replace(match, process.env[envVariable]);
               }
             }
           }
@@ -42762,6 +42764,7 @@ async function verifyIfMetaJsonExists(path3) {
     };
     return updatedMetaConfigAction(envReplacedUpdatedConfig);
   } catch (error) {
+    console.log("This part has an error", error);
     return;
   }
 }

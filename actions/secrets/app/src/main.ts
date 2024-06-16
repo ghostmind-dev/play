@@ -27,7 +27,7 @@ export async function verifyIfMetaJsonExists(
   path: string
 ): Promise<MetaJson | undefined> {
   try {
-    console.log('path', path);
+    console.log('pathdisjidjsisdji', path);
 
     await $`ls -la ${path}`;
 
