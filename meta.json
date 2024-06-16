@@ -3,6 +3,8 @@
   "type": "project",
   "name": "play",
   "routines": {
+    "env_build": "cd ${SRC}/actions/env && run custom build",
+    "env_dev": "cd ${SRC}/actions/env && run custom dev --all",
     "gcloud_build": "cd ${SRC}/actions/gcloud && run custom build",
     "gcloud_dev": "cd ${SRC}/actions/gcloud && run custom dev --all",
     "hasura_build": "cd ${SRC}/actions/hasura && run custom build",
@@ -15,7 +17,7 @@
     "terraform_dev": "cd ${SRC}/actions/terraform && run custom dev --all",
     "vault_build": "cd ${SRC}/actions/vault && run custom build",
     "vault_dev": "cd ${SRC}/actions/vault && run custom dev --all",
-    "build_all": "parallel gcloud_build hasura_build run_build secrets_build terraform_build vault_build",
+    "build_all": "parallel env_build gcloud_build hasura_build run_build secrets_build terraform_build vault_build",
     "dev_all": "parallel gcloud_dev hasura_dev run_dev terraform_dev secrets_dev vault_dev"
   }
 }

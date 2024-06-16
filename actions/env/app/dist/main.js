@@ -40244,22 +40244,19 @@ var {
 
 // src/main.ts
 var core = __toESM(require_core2(), 1);
-async function play() {
-  const target = core.default.getInput("target");
-  let environement = "";
-  const currentBranchRaw = await $`git branch --show-current`;
-  const currentBranch = currentBranchRaw.stdout.trim();
-  if (target) {
-    environement = target;
-  } else if (currentBranch === "main") {
-    environement = "prod";
-  } else {
-    environement = currentBranch;
-  }
-  process.env.ENV = environement;
-  const gitEnvPathRaw = await $`echo $GITHUB_ENV`;
-  const gitEnvPath = `${gitEnvPathRaw}`.replace(/(\r\n|\n|\r)/gm, "");
-  core.default.setOutput("ENV", environement);
-  await $`echo ENV=${environement} >> ${gitEnvPath}`;
+var target = core.default.getInput("target");
+var environement = "";
+var currentBranchRaw = await $`git branch --show-current`;
+var currentBranch = currentBranchRaw.stdout.trim();
+if (target) {
+  environement = target;
+} else if (currentBranch === "main") {
+  environement = "prod";
+} else {
+  environement = currentBranch;
 }
-play();
+process.env.ENV = environement;
+var gitEnvPathRaw = await $`echo $GITHUB_ENV`;
+var gitEnvPath = `${gitEnvPathRaw}`.replace(/(\r\n|\n|\r)/gm, "");
+core.default.setOutput("ENV", environement);
+await $`echo ENV=${environement} >> ${gitEnvPath}`;

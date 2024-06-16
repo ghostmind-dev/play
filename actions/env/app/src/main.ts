@@ -3,38 +3,27 @@
 import { $ } from 'zx';
 import core from '@actions/core';
 
-async function play() {
-  const target = core.getInput('target');
+const target = core.getInput('target');
 
-  let environement = '';
+let environement = '';
 
-  const currentBranchRaw = await $`git branch --show-current`;
-  // trim the trailing newline
-  const currentBranch = currentBranchRaw.stdout.trim();
+const currentBranchRaw = await $`git branch --show-current`;
+// trim the trailing newline
+const currentBranch = currentBranchRaw.stdout.trim();
 
-  if (target) {
-    environement = target;
-  } else if (currentBranch === 'main') {
-    environement = 'prod';
-  } else {
-    environement = currentBranch;
-  }
-
-  process.env.ENV = environement;
-
-  const gitEnvPathRaw = await $`echo $GITHUB_ENV`;
-
-  const gitEnvPath = `${gitEnvPathRaw}`.replace(/(\r\n|\n|\r)/gm, '');
-
-  core.setOutput('ENV', environement);
-  await $`echo ENV=${environement} >> ${gitEnvPath}`;
+if (target) {
+  environement = target;
+} else if (currentBranch === 'main') {
+  environement = 'prod';
+} else {
+  environement = currentBranch;
 }
 
-/**
- *
- * Set environment variables for all the next action steps
- * Only use within a github action step
- *
- */
+process.env.ENV = environement;
 
-play();
+const gitEnvPathRaw = await $`echo $GITHUB_ENV`;
+
+const gitEnvPath = `${gitEnvPathRaw}`.replace(/(\r\n|\n|\r)/gm, '');
+
+core.setOutput('ENV', environement);
+await $`echo ENV=${environement} >> ${gitEnvPath}`;
