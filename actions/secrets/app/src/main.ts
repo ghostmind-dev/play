@@ -27,10 +27,6 @@ export async function verifyIfMetaJsonExists(
   path: string
 ): Promise<MetaJson | undefined> {
   try {
-    console.log('pathdisjidjsisdji', path);
-
-    await $`ls -la ${path}`;
-
     await fs.access(`${path}/meta.json`);
     let metaconfig = fs.readJsonSync(`${path}/meta.json`);
 
@@ -177,14 +173,14 @@ try {
         `/tmp/.env.base.${APP}.json`
       );
       const { CREDS: creadsBase } = credsValueBase.data.data;
-      fs.writeFileSync('/tmp/.env.base.${APP}', creadsBase, 'utf8');
+      fs.writeFileSync(`/tmp/.env.base.${APP}`, creadsBase, 'utf8');
 
       await $`vault kv get -format=json kv/${id}/${target}/secrets  > /tmp/.env.target.${APP}.json`;
       const credsValueTarget = await fs.readJSONSync(
         `/tmp/.env.target.${APP}.json`
       );
       const { CREDS: credsTarget } = credsValueTarget.data.data;
-      fs.writeFileSync('/tmp/.env.target.${APP}', credsTarget, 'utf8');
+      fs.writeFileSync(`/tmp/.env.target.${APP}`, credsTarget, 'utf8');
 
       // merge base and target files in /tmp/.env.APP_NAME
       await $`rm -rf /tmp/.env.${APP}`;
