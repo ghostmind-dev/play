@@ -42796,16 +42796,11 @@ try {
     }
   } else {
     const APP = `${Math.random().toString(36).substring(7)}`;
-    let currentPath = process.env.GITHUB_WORKSPACE;
-    if (directory) {
-      currentPath = `${currentPath}/${directory}`;
-      process.chdir(currentPath);
-    }
     const target = process.env.ENV;
     const gitEnvPathRaw = await $`echo $GITHUB_ENV`;
     const gitEnvPath = `${gitEnvPathRaw}`.replace(/(\r\n|\n|\r)/gm, "");
     await $`rm -rf /tmp/.env.${APP}`;
-    const metajson = await verifyIfMetaJsonExists(currentPath);
+    const metajson = await verifyIfMetaJsonExists(directory);
     let { id } = metajson;
     let env_file = `/tmp/.env.${APP}`;
     if (metajson?.secrets?.base) {
