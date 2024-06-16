@@ -173,6 +173,10 @@ try {
     // generqta a random string
     const APP = `${Math.random().toString(36).substring(7)}`;
 
+    console.log('GITHUB_WORKSPACE 12345', process.env.GITHUB_WORKSPACE);
+    console.log('currentPath 12345', process.cwd());
+    console.log('directory 12345', directory);
+
     let currentPath = process.env.GITHUB_WORKSPACE;
 
     if (directory) {
@@ -180,12 +184,15 @@ try {
       process.chdir(currentPath);
     }
 
+    console.log('currentPath 12345', currentPath);
+
     const target = process.env.ENV;
     const gitEnvPathRaw = await $`echo $GITHUB_ENV`;
     const gitEnvPath = `${gitEnvPathRaw}`.replace(/(\r\n|\n|\r)/gm, '');
     await $`rm -rf /tmp/.env.${APP}`;
     const metajson = await verifyIfMetaJsonExists(currentPath);
 
+    console.log('metajson', metajson);
     let { id } = metajson;
 
     let env_file = `/tmp/.env.${APP}`;
