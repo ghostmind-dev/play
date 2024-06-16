@@ -46,7 +46,7 @@ export async function verifyIfMetaJsonExists(
               if (!envVariable.includes('this.')) {
                 updatedMetaConfig[key] = updatedMetaConfig[key].replace(
                   match,
-                  proccess.env[envVariable]
+                  process.env[envVariable]
                 );
               }
             }
