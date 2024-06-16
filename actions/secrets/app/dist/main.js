@@ -42723,7 +42723,7 @@ async function verifyIfMetaJsonExists(path3) {
             for (let match of matches) {
               const envVariable = match.replace("${", "").replace("}", "");
               if (!envVariable.includes("this.")) {
-                updatedMetaConfig[key] = updatedMetaConfig[key].replace(match, Deno.env.get(envVariable));
+                updatedMetaConfig[key] = updatedMetaConfig[key].replace(match, proccess.env[envVariable]);
               }
             }
           }

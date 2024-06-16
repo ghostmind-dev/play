@@ -5,15 +5,6 @@ import { parse } from 'dotenv';
 import { expand } from 'dotenv-expand';
 import { readFileSync } from 'fs';
 
-// create jsdoc comment for the function
-// with a description of the function
-
-/**
- *
- * @param path
- * @returns
- */
-
 ////////////////////////////////////////////////////////////////////////////////
 // TYPES DEFINITION
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,20 +30,6 @@ export async function verifyIfMetaJsonExists(
     await fs.access(`${path}/meta.json`);
     let metaconfig = fs.readJsonSync(`${path}/meta.json`);
 
-    // replace the field that containers ${} with the value of the field
-
-    // {
-    //   id: "ic9ETB7juz3g",
-    //   type: "project",
-    //   name: "run",
-    //   schema: { structure: "${VARIABLE}" }
-    // }
-
-    // iterate overt the json
-    // if the property value is a string and it includes ${ANYTHING} pattern
-    // replace the value with Deno.env.get('ANYTHING')
-    // if the property value is an object, iterate over the object and do the same
-
     const replaceEnvVariables = (obj: any) => {
       let updatedMetaConfig = obj;
 
@@ -69,7 +46,7 @@ export async function verifyIfMetaJsonExists(
               if (!envVariable.includes('this.')) {
                 updatedMetaConfig[key] = updatedMetaConfig[key].replace(
                   match,
-                  Deno.env.get(envVariable)
+                  proccess.env[envVariable]
                 );
               }
             }
