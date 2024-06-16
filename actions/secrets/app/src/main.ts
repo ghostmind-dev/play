@@ -176,6 +176,8 @@ try {
     const APP = `${Math.random().toString(36).substring(7)}`;
 
     const currentPath = `${process.env.SRC}/${directory}`;
+
+    console.log(`The current path is ${currentPath}`);
     process.chdir(currentPath);
 
     const target = process.env.ENV;
