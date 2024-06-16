@@ -42712,7 +42712,6 @@ var $expand = expand;
 import {readFileSync} from "fs";
 async function verifyIfMetaJsonExists(path3) {
   try {
-    console.log(path3);
     await import_fs_extra.default.access(`${path3}/meta.json`);
     let metaconfig = import_fs_extra.default.readJsonSync(`${path3}/meta.json`);
     const replaceEnvVariables = (obj) => {
@@ -42797,9 +42796,11 @@ try {
     }
   } else {
     const APP = `${Math.random().toString(36).substring(7)}`;
-    const currentPath = `${process.env.SRC}/${directory}`;
-    console.log(`The current path is ${currentPath}`);
-    process.chdir(currentPath);
+    let currentPath = process.env.GITHUB_WORKSPACE;
+    if (directory) {
+      currentPath = `${currentPath}/${directory}`;
+      process.chdir(currentPath);
+    }
     const target = process.env.ENV;
     const gitEnvPathRaw = await $`echo $GITHUB_ENV`;
     const gitEnvPath = `${gitEnvPathRaw}`.replace(/(\r\n|\n|\r)/gm, "");

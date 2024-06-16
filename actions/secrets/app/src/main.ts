@@ -36,8 +36,6 @@ export async function verifyIfMetaJsonExists(
   path: string
 ): Promise<MetaJson | undefined> {
   try {
-    console.log(path);
-
     await fs.access(`${path}/meta.json`);
     let metaconfig = fs.readJsonSync(`${path}/meta.json`);
 
@@ -175,10 +173,12 @@ try {
     // generqta a random string
     const APP = `${Math.random().toString(36).substring(7)}`;
 
-    const currentPath = `${process.env.SRC}/${directory}`;
+    let currentPath = process.env.GITHUB_WORKSPACE;
 
-    console.log(`The current path is ${currentPath}`);
-    process.chdir(currentPath);
+    if (directory) {
+      currentPath = `${currentPath}/${directory}`;
+      process.chdir(currentPath);
+    }
 
     const target = process.env.ENV;
     const gitEnvPathRaw = await $`echo $GITHUB_ENV`;
