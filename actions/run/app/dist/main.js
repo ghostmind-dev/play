@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import {createRequire} from "node:module";
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -40180,7 +40179,7 @@ var {
 } = await Promise.resolve().then(() => __toESM(require_build(), 1));
 
 // src/main.ts
-async function run() {
+try {
   const devMode = core.default.getInput("dev");
   const HOME = process.env.HOME;
   $.verbose = true;
@@ -40195,5 +40194,6 @@ async function run() {
     await $`deno install --allow-all --force --global --name run ${HOME}/run/run/bin/cmd.ts`;
   }
   await $`echo "${HOME}/.deno/bin" >> $GITHUB_PATH`;
+} catch (error) {
+  core.default.setFailed(error.message);
 }
-run();

@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import {createRequire} from "node:module";
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -40180,7 +40179,7 @@ var {
 } = await Promise.resolve().then(() => __toESM(require_build(), 1));
 
 // src/main.ts
-async function play() {
+try {
   const login = core.default.getInput("login");
   const service_account_key = core.default.getInput("service_account_key");
   const docker_auth = core.default.getInput("docker_auth");
@@ -40201,5 +40200,6 @@ async function play() {
     await $`gcloud config set compute/zone us-central1-b`;
     await $`gcloud auth configure-docker gcr.io --quiet`;
   }
+} catch (error) {
+  core.default.setFailed(error.message);
 }
-play();

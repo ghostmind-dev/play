@@ -2,7 +2,7 @@
 import core from '@actions/core';
 import { $, cd } from 'zx';
 
-async function play() {
+try {
   const version = core.getInput('version');
 
   const TERRAFORM_VERSION = version || process.env.TERRAFORM_VERSION;
@@ -20,6 +20,6 @@ async function play() {
   cd('/tmp');
   await $`wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip`;
   await $`unzip terraform_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip -d /usr/bin`;
+} catch (error) {
+  core.setFailed(error.message);
 }
-
-play();

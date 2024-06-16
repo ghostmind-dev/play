@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import {createRequire} from "node:module";
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -40180,7 +40179,7 @@ var {
 } = await Promise.resolve().then(() => __toESM(require_build(), 1));
 
 // src/main.ts
-async function play() {
+try {
   const login = core.default.getInput("login");
   const token = core.default.getInput("token");
   const addrr = core.default.getInput("addrr");
@@ -40199,5 +40198,6 @@ async function play() {
     const VAULT_ADDR = addrr || process.env.VAULT_ADDR;
     await $`vault login "${VAULT_TOKEN}" -address="${VAULT_ADDR}" -non-interactive=true --no-print=true >/dev/null 2>&1`;
   }
+} catch (error) {
+  core.default.setFailed(error.message);
 }
-play();

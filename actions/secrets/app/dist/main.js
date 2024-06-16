@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import {createRequire} from "node:module";
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -42774,7 +42773,7 @@ async function detectScriptsDirectory(currentPath) {
   }
   return currentPath;
 }
-async function play() {
+try {
   const global2 = core.default.getInput("global");
   const directory = core.default.getInput("dir");
   $.verbose = true;
@@ -42892,8 +42891,9 @@ async function play() {
       await import_fs_extra.default.promises.unlink(tempEnvPath);
     }
   }
+} catch (error) {
+  core.default.setFailed(error.message);
 }
-play();
 export {
   verifyIfMetaJsonExists,
   detectScriptsDirectory

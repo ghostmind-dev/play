@@ -40180,7 +40180,7 @@ var {
 } = await Promise.resolve().then(() => __toESM(require_build(), 1));
 
 // src/main.ts
-async function play() {
+try {
   const version = core.default.getInput("version");
   const TERRAFORM_VERSION = version || process.env.TERRAFORM_VERSION;
   $.verbose = true;
@@ -40193,5 +40193,6 @@ async function play() {
   cd("/tmp");
   await $`wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip`;
   await $`unzip terraform_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip -d /usr/bin`;
+} catch (error) {
+  core.default.setFailed(error.message);
 }
-play();

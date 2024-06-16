@@ -1,4 +1,4 @@
-import { cd } from 'npm:zx';
+import { cd, $ } from 'npm:zx';
 import type { CustomArgs, CustomOptions } from 'jsr:@ghostmind/run';
 
 export default async function (_arg: CustomArgs, opts: CustomOptions) {

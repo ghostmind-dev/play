@@ -1,8 +1,7 @@
-#!/usr/bin/env node
 import core from '@actions/core';
 import { $ } from 'zx';
 
-async function play() {
+try {
   const login = core.getInput('login');
   const token = core.getInput('token');
   const addrr = core.getInput('addrr');
@@ -26,6 +25,6 @@ async function play() {
 
     await $`vault login "${VAULT_TOKEN}" -address="${VAULT_ADDR}" -non-interactive=true --no-print=true >/dev/null 2>&1`;
   }
+} catch (error) {
+  core.setFailed(error.message);
 }
-
-play();

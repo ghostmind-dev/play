@@ -1,8 +1,7 @@
-#!/usr/bin/env node
 import core from '@actions/core';
 import { $ } from 'zx';
 
-async function run() {
+try {
   const devMode = core.getInput('dev');
 
   const HOME = process.env.HOME;
@@ -23,6 +22,6 @@ async function run() {
   }
 
   await $`echo "${HOME}/.deno/bin" >> $GITHUB_PATH`;
+} catch (error) {
+  core.setFailed(error.message);
 }
-
-run();

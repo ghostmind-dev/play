@@ -1,8 +1,7 @@
-#!/usr/bin/env node
 import core from '@actions/core';
 import { $ } from 'zx';
 
-async function play() {
+try {
   const login = core.getInput('login');
   const service_account_key = core.getInput('service_account_key');
   const docker_auth = core.getInput('docker_auth');
@@ -29,6 +28,6 @@ async function play() {
     await $`gcloud config set compute/zone us-central1-b`;
     await $`gcloud auth configure-docker gcr.io --quiet`;
   }
+} catch (error) {
+  core.setFailed(error.message);
 }
-
-play();

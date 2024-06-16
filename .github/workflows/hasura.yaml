@@ -1,0 +1,16 @@
+name: Testing github actions 
+on:
+  workflow_dispatch:
+jobs:
+  hasura:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out repository"
+        uses: actions/checkout@v3
+      - uses: ./actions/hasura
+        name: "install hasura cli"
+      - run: hasura --help
+ 
+
+
+      

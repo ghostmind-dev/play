@@ -1,11 +1,11 @@
-#!/usr/bin/env node
 import core from '@actions/core';
 import { $ } from 'zx';
 
-async function play() {
-  $.verbose = true;
-
+try {
   await $`curl -L https://github.com/hasura/graphql-engine/raw/stable/cli/get.sh | bash`;
+  console.log('Hasura CLI installed successfully');
+} catch (error) {
+  core.setFailed(error.message);
 }
 
-play();
+$.verbose = true;
