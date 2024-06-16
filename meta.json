@@ -9,11 +9,13 @@
     "hasura_dev": "cd ${SRC}/actions/hasura && run custom dev --all",
     "run_build": "cd ${SRC}/actions/run && run custom build",
     "run_dev": "cd ${SRC}/actions/run && run custom dev --all",
+    "sectets_dev": "cd ${SRC}/actions/secrets && run custom dev --all",
+    "secrets_build": "cd ${SRC}/actions/secrets && run custom build",
     "terraform_build": "cd ${SRC}/actions/terraform && run custom build",
     "terraform_dev": "cd ${SRC}/actions/terraform && run custom dev --all",
     "vault_build": "cd ${SRC}/actions/vault && run custom build",
     "vault_dev": "cd ${SRC}/actions/vault && run custom dev --all",
-    "build_all": "parallel gcloud_build hasura_build run_build terraform_build vault_build",
-    "dev_all": "parallel gcloud_dev hasura_dev run_dev terraform_dev vault_dev"
+    "build_all": "parallel gcloud_build hasura_build run_build secrets_build terraform_build vault_build",
+    "dev_all": "parallel gcloud_dev hasura_dev run_dev terraform_dev secrets_dev vault_dev"
   }
 }

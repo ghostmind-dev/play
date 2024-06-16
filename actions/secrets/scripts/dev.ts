@@ -11,7 +11,7 @@ export default async function (_arg: CustomArgs, opts: CustomOptions) {
       command:
         'nodemon --watch ./dist --watch $workflows --ext yaml,js  --exec $action',
       variables: {
-        action: `run action local run -W --no-reuse`,
+        action: `run action local secrets -W --no-reuse`,
         workflows: `${Deno.env.get('SRC')}/.github/workflows`,
       },
     },

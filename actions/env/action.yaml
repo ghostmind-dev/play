@@ -1,0 +1,9 @@
+name: "env"
+description: "set environment"
+inputs:
+  target:
+    description: "set environment variables"
+    required: false 
+runs:
+  using: "node20"
+  main: "app/dist/main.js"

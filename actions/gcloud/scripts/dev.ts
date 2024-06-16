@@ -6,10 +6,12 @@ export default async function (_arg: CustomArgs, opts: CustomOptions) {
 
   cd(`${currentPath}/app`);
 
+  await $`bun build ./src/main.ts --outdir ./dist --target node`;
+
   await start({
     act: {
       command:
-        'nodemon --watch ./dist --watch ${workflows} --ext yaml,js  --exec ${action}',
+        'nodemon --watch ./dist --watch $workflows --ext yaml,js  --exec $action',
       variables: {
         action: `run action local gcloud -W --no-reuse`,
         workflows: `${Deno.env.get('SRC')}/.github/workflows`,

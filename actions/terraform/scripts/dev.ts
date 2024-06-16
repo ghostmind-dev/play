@@ -12,7 +12,7 @@ export default async function (_arg: CustomArgs, opts: CustomOptions) {
     },
     act: {
       command:
-        'nodemon --watch ./dist --watch ${workflows} --ext yaml,js  --exec ${action}',
+        'nodemon --watch ./dist --watch $workflows --ext yaml,js  --exec $action',
       variables: {
         action: `run action local terraform -W --no-reuse`,
         workflows: `${Deno.env.get('SRC')}/.github/workflows`,

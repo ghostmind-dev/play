@@ -38,7 +38,9 @@
     "/workspaces/play/actions/run/app/src",
     "/workspaces/play/actions/vault/app/src",
     "/workspaces/play/actions/terraform/app/src",
-    "/workspaces/play/actions/hasura/app/src"
+    "/workspaces/play/actions/hasura/app/src",
+    "/workspaces/play/actions/secrets/app/src",
+    "/workspaces/play/actions/env/app/src"
   ],
   "vsicons.associations.folders": [
     { "icon": "app", "extensions": ["play"], "format": "svg" },
@@ -52,12 +54,15 @@
     { "icon": "buildkite", "extensions": ["hasura"], "format": "svg" },
     { "icon": "buildkite", "extensions": ["run"], "format": "svg" },
     { "icon": "buildkite", "extensions": ["terraform"], "format": "svg" },
-    { "icon": "buildkite", "extensions": ["vault"], "format": "svg" }
+    { "icon": "buildkite", "extensions": ["vault"], "format": "svg" },
+    { "icon": "buildkite", "extensions": ["secrets"], "format": "svg" },
+    { "icon": "buildkite", "extensions": ["env"], "format": "svg" }
   ],
   "vsicons.associations.files": [
     { "icon": "config", "extensions": [".env.local"], "format": "svg" },
     { "icon": "config", "extensions": [".env.dev"], "format": "svg" },
     { "icon": "config", "extensions": [".env.prod"], "format": "svg" },
+    { "icon": "config", "extensions": [".env.template"], "format": "svg" },
     { "icon": "pytyped", "extensions": [".toml"], "format": "svg" },
     { "icon": "map", "extensions": [".md"], "format": "svg" }
   ],

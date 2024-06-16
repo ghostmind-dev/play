@@ -1,0 +1,11 @@
+{
+  "name": "gcloud",
+  "type": "module",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "dotenv": "^16.4.5",
+    "zx": "^8.0.2"
+  }
+}
