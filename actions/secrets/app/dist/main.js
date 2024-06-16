@@ -42712,8 +42712,6 @@ var $expand = expand;
 import {readFileSync} from "fs";
 async function verifyIfMetaJsonExists(path3) {
   try {
-    console.log("path", path3);
-    await $`ls -la ${path3}`;
     await import_fs_extra.default.access(`${path3}/meta.json`);
     let metaconfig = import_fs_extra.default.readJsonSync(`${path3}/meta.json`);
     const replaceEnvVariables = (obj) => {
@@ -42808,20 +42806,18 @@ try {
     let env_file = `/tmp/.env.${APP}`;
     if (metajson?.secrets?.base) {
       let base = metajson.secrets.base;
-      let base_file = `/tmp/.env.base.${APP}`;
-      let target_file = `/tmp/.env.target.${APP}`;
       await $`rm -rf /tmp/.env.base.${APP}`;
       await $`rm -rf /tmp/.env.target.${APP}`;
       await $`vault kv get -format=json kv/${id}/base/secrets  > /tmp/.env.base.${APP}.json`;
       const credsValueBase = await import_fs_extra.default.readJSONSync(`/tmp/.env.base.${APP}.json`);
       const { CREDS: creadsBase } = credsValueBase.data.data;
-      import_fs_extra.default.writeFileSync("/tmp/.env.base.${APP}", creadsBase, "utf8");
+      import_fs_extra.default.writeFileSync(`/tmp/.env.base.${APP}`, creadsBase, "utf8");
       await $`vault kv get -format=json kv/${id}/${target}/secrets  > /tmp/.env.target.${APP}.json`;
       const credsValueTarget = await import_fs_extra.default.readJSONSync(`/tmp/.env.target.${APP}.json`);
       const { CREDS: credsTarget } = credsValueTarget.data.data;
-      import_fs_extra.default.writeFileSync("/tmp/.env.target.${APP}", credsTarget, "utf8");
+      import_fs_extra.default.writeFileSync(`/tmp/.env.target.${APP}`, credsTarget, "utf8");
       await $`rm -rf /tmp/.env.${APP}`;
-      await $`cat ${base_file} ${target_file} > /tmp/.env.${APP}`;
+      await $`cat /tmp/.env.target.${APP} /tmp/.env.base.${APP} > /tmp/.env.${APP}`;
     } else {
       await $`rm -rf /tmp/.env.${APP}`;
       $.verbose = true;

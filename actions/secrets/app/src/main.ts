@@ -162,8 +162,6 @@ try {
     let env_file = `/tmp/.env.${APP}`;
     if (metajson?.secrets?.base) {
       let base = metajson.secrets.base;
-      let base_file = `/tmp/.env.base.${APP}`;
-      let target_file = `/tmp/.env.target.${APP}`;
 
       await $`rm -rf /tmp/.env.base.${APP}`;
       await $`rm -rf /tmp/.env.target.${APP}`;
@@ -184,7 +182,7 @@ try {
 
       // merge base and target files in /tmp/.env.APP_NAME
       await $`rm -rf /tmp/.env.${APP}`;
-      await $`cat ${base_file} ${target_file} > /tmp/.env.${APP}`;
+      await $`cat /tmp/.env.target.${APP} /tmp/.env.base.${APP} > /tmp/.env.${APP}`;
     } else {
       await $`rm -rf /tmp/.env.${APP}`;
       $.verbose = true;
