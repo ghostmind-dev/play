@@ -133,23 +133,6 @@ export async function verifyIfMetaJsonExists(
     return undefined;
   }
 }
-////////////////////////////////////////////////////////////////////////////////
-// DETECT SCRIPS DIRECTORY
-////////////////////////////////////////////////////////////////////////////////
-
-export async function detectScriptsDirectory(
-  currentPath: string
-): Promise<string> {
-  // verify if the current path ends with scripts
-
-  if (currentPath.includes('scripts')) {
-    // remove /scripts from the path
-    currentPath = currentPath.replace('/scripts', '');
-    return currentPath;
-  }
-
-  return currentPath;
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 // MAIN

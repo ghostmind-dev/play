@@ -42766,13 +42766,6 @@ async function verifyIfMetaJsonExists(path3) {
     return;
   }
 }
-async function detectScriptsDirectory(currentPath) {
-  if (currentPath.includes("scripts")) {
-    currentPath = currentPath.replace("/scripts", "");
-    return currentPath;
-  }
-  return currentPath;
-}
 try {
   const global2 = core.default.getInput("global");
   const directory = core.default.getInput("dir");
@@ -42895,6 +42888,5 @@ try {
   core.default.setFailed(error.message);
 }
 export {
-  verifyIfMetaJsonExists,
-  detectScriptsDirectory
+  verifyIfMetaJsonExists
 };
