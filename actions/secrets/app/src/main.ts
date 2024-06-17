@@ -227,7 +227,7 @@ try {
       prefixedVars += `\nTF_VAR_PROJECT=${name}`;
     }
     if (!appNameHasBeenDefined) {
-      const metaconfig = await verifyIfMetaJsonExists(currentPath);
+      const metaconfig = await verifyIfMetaJsonExists(directory);
       let name = metaconfig?.name;
       await $`echo APP=${name} >> ${gitEnvPath}`;
       prefixedVars += `\nTF_VAR_APP=${name}`;
@@ -238,7 +238,7 @@ try {
       prefixedVars += `\nTF_VAR_GCP_PROJECT_ID=${GCP_PROJECT_ID}`;
     }
     if (!portHasBeenDefined) {
-      const { port }: any = await verifyIfMetaJsonExists(currentPath);
+      const { port }: any = await verifyIfMetaJsonExists(directory);
       await $`echo PORT=${port} >> ${gitEnvPath}`;
       prefixedVars += `\nTF_VAR_PORT=${port}`;
     }
