@@ -42827,58 +42827,58 @@ try {
       const { CREDS } = credsValue.data.data;
       import_fs_extra.default.writeFileSync(`/tmp/.env.${APP}`, CREDS, "utf8");
       $.verbose = true;
-      const content = readFileSync(env_file, "utf-8");
-      const nonTfVarNames = content.match(/^(?!TF_VAR_)[A-Z_]+(?==)/gm);
-      let prefixedVars = nonTfVarNames.map((varName) => {
-        const value = content.match(new RegExp(`^${varName}=(.*)\$`, "m"))[1];
-        return `TF_VAR_${varName}=${value}`;
-      }).join("\n");
-      const projectHasBeenDefined = prefixedVars.match(/^TF_VAR_PROJECT=(.*)$/m);
-      const appNameHasBeenDefined = prefixedVars.match(/^TF_VAR_APP=(.*)$/m);
-      const portHasBeenDefined = prefixedVars.match(/^TF_VAR_PORT=(.*)$/m);
-      const gcpProjectIdhAsBeenDefined = prefixedVars.match(/^TF_VAR_GCP_PROJECT_ID=(.*)$/m);
-      if (!projectHasBeenDefined) {
-        const SRC = process.env.SRC;
-        const metaconfig = await verifyIfMetaJsonExists(SRC);
-        let name = metaconfig?.name || "";
-        await $`echo PROJECT=${name} >> ${gitEnvPath}`;
-        prefixedVars += `\nTF_VAR_PROJECT=${name}`;
-      }
-      if (!appNameHasBeenDefined) {
-        const metaconfig = await verifyIfMetaJsonExists(currentPath);
-        let name = metaconfig?.name;
-        await $`echo APP=${name} >> ${gitEnvPath}`;
-        prefixedVars += `\nTF_VAR_APP=${name}`;
-      }
-      if (!gcpProjectIdhAsBeenDefined) {
-        const GCP_PROJECT_ID = process.env.GCP_PROJECT_ID;
-        await $`echo GCP_PROJECT_ID=${GCP_PROJECT_ID} >> ${gitEnvPath}`;
-        prefixedVars += `\nTF_VAR_GCP_PROJECT_ID=${GCP_PROJECT_ID}`;
-      }
-      if (!portHasBeenDefined) {
-        const { port } = await verifyIfMetaJsonExists(currentPath);
-        await $`echo PORT=${port} >> ${gitEnvPath}`;
-        prefixedVars += `\nTF_VAR_PORT=${port}`;
-      }
-      await $`rm -rf /tmp/.env.${APP}`;
-      const tempEnvPath = `/tmp/.env.${APP}`;
-      await import_fs_extra.default.writeFile(tempEnvPath, `${content}\n${prefixedVars}`);
-      const originalEnvContent = readFileSync(tempEnvPath, "utf8");
-      const envConfig = import_dotenv.parse(originalEnvContent);
-      const expandedConfig = $expand({
-        parsed: envConfig
-      });
-      for (let [key, value] of Object.entries(expandedConfig.parsed)) {
-        $.verbose = false;
-        let secret = value;
-        core.default.setSecret(secret);
-        $.verbose = true;
-        core.default.setOutput(key, value);
-        await $`echo ${key}=${value} >> ${gitEnvPath}`;
-        console.log(`Secrets set for ${key}`);
-      }
-      await import_fs_extra.default.promises.unlink(tempEnvPath);
     }
+    const content = readFileSync(env_file, "utf-8");
+    const nonTfVarNames = content.match(/^(?!TF_VAR_)[A-Z_]+(?==)/gm);
+    let prefixedVars = nonTfVarNames.map((varName) => {
+      const value = content.match(new RegExp(`^${varName}=(.*)\$`, "m"))[1];
+      return `TF_VAR_${varName}=${value}`;
+    }).join("\n");
+    const projectHasBeenDefined = prefixedVars.match(/^TF_VAR_PROJECT=(.*)$/m);
+    const appNameHasBeenDefined = prefixedVars.match(/^TF_VAR_APP=(.*)$/m);
+    const portHasBeenDefined = prefixedVars.match(/^TF_VAR_PORT=(.*)$/m);
+    const gcpProjectIdhAsBeenDefined = prefixedVars.match(/^TF_VAR_GCP_PROJECT_ID=(.*)$/m);
+    if (!projectHasBeenDefined) {
+      const SRC = process.env.SRC;
+      const metaconfig = await verifyIfMetaJsonExists(SRC);
+      let name = metaconfig?.name || "";
+      await $`echo PROJECT=${name} >> ${gitEnvPath}`;
+      prefixedVars += `\nTF_VAR_PROJECT=${name}`;
+    }
+    if (!appNameHasBeenDefined) {
+      const metaconfig = await verifyIfMetaJsonExists(currentPath);
+      let name = metaconfig?.name;
+      await $`echo APP=${name} >> ${gitEnvPath}`;
+      prefixedVars += `\nTF_VAR_APP=${name}`;
+    }
+    if (!gcpProjectIdhAsBeenDefined) {
+      const GCP_PROJECT_ID = process.env.GCP_PROJECT_ID;
+      await $`echo GCP_PROJECT_ID=${GCP_PROJECT_ID} >> ${gitEnvPath}`;
+      prefixedVars += `\nTF_VAR_GCP_PROJECT_ID=${GCP_PROJECT_ID}`;
+    }
+    if (!portHasBeenDefined) {
+      const { port } = await verifyIfMetaJsonExists(currentPath);
+      await $`echo PORT=${port} >> ${gitEnvPath}`;
+      prefixedVars += `\nTF_VAR_PORT=${port}`;
+    }
+    await $`rm -rf /tmp/.env.${APP}`;
+    const tempEnvPath = `/tmp/.env.${APP}`;
+    await import_fs_extra.default.writeFile(tempEnvPath, `${content}\n${prefixedVars}`);
+    const originalEnvContent = readFileSync(tempEnvPath, "utf8");
+    const envConfig = import_dotenv.parse(originalEnvContent);
+    const expandedConfig = $expand({
+      parsed: envConfig
+    });
+    for (let [key, value] of Object.entries(expandedConfig.parsed)) {
+      $.verbose = false;
+      let secret = value;
+      core.default.setSecret(secret);
+      $.verbose = true;
+      core.default.setOutput(key, value);
+      await $`echo ${key}=${value} >> ${gitEnvPath}`;
+      console.log(`Secrets set for ${key}`);
+    }
+    await import_fs_extra.default.promises.unlink(tempEnvPath);
   }
 } catch (error) {
   core.default.setFailed(error.message);
