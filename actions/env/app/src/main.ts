@@ -2,7 +2,6 @@ import { $ } from 'zx';
 import core from '@actions/core';
 
 try {
-  console.log(328793292839);
   const target = core.getInput('target');
 
   let environement = '';
