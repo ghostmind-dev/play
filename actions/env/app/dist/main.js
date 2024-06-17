@@ -40244,6 +40244,7 @@ var {
 // src/main.ts
 var core = __toESM(require_core2(), 1);
 try {
+  console.log(328793292839);
   const target = core.default.getInput("target");
   let environement = "";
   const currentBranchRaw = await $`git branch --show-current`;
