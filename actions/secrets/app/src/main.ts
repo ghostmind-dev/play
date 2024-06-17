@@ -198,73 +198,72 @@ try {
 
       fs.writeFileSync(`/tmp/.env.${APP}`, CREDS, 'utf8');
       $.verbose = true;
-
-      const content: any = readFileSync(env_file, 'utf-8');
-
-      // Extract all variable names that don't start with TF_VAR
-      const nonTfVarNames: any = content.match(/^(?!TF_VAR_)[A-Z_]+(?==)/gm);
-      // Generate the prefixed variable declarations for non-TF_VAR variables
-      // remove element TF_VAR_PORT
-      let prefixedVars = nonTfVarNames
-        .map((varName: any) => {
-          const value = content.match(new RegExp(`^${varName}=(.*)$`, 'm'))[1];
-          return `TF_VAR_${varName}=${value}`;
-        })
-        .join('\n');
-      const projectHasBeenDefined = prefixedVars.match(
-        /^TF_VAR_PROJECT=(.*)$/m
-      );
-      const appNameHasBeenDefined = prefixedVars.match(/^TF_VAR_APP=(.*)$/m);
-      const portHasBeenDefined = prefixedVars.match(/^TF_VAR_PORT=(.*)$/m);
-      const gcpProjectIdhAsBeenDefined = prefixedVars.match(
-        /^TF_VAR_GCP_PROJECT_ID=(.*)$/m
-      );
-      if (!projectHasBeenDefined) {
-        const SRC = process.env.SRC;
-        const metaconfig = await verifyIfMetaJsonExists(SRC);
-        let name = metaconfig?.name || '';
-        await $`echo PROJECT=${name} >> ${gitEnvPath}`;
-        // add the project name to the .env file
-        prefixedVars += `\nTF_VAR_PROJECT=${name}`;
-      }
-      if (!appNameHasBeenDefined) {
-        const metaconfig = await verifyIfMetaJsonExists(currentPath);
-        let name = metaconfig?.name;
-        await $`echo APP=${name} >> ${gitEnvPath}`;
-        prefixedVars += `\nTF_VAR_APP=${name}`;
-      }
-      if (!gcpProjectIdhAsBeenDefined) {
-        const GCP_PROJECT_ID = process.env.GCP_PROJECT_ID;
-        await $`echo GCP_PROJECT_ID=${GCP_PROJECT_ID} >> ${gitEnvPath}`;
-        prefixedVars += `\nTF_VAR_GCP_PROJECT_ID=${GCP_PROJECT_ID}`;
-      }
-      if (!portHasBeenDefined) {
-        const { port }: any = await verifyIfMetaJsonExists(currentPath);
-        await $`echo PORT=${port} >> ${gitEnvPath}`;
-        prefixedVars += `\nTF_VAR_PORT=${port}`;
-      }
-      await $`rm -rf /tmp/.env.${APP}`;
-      // write content to /tmp/.env.APP_NAME and add prefixedVars at the end
-      const tempEnvPath = `/tmp/.env.${APP}`;
-      await fs.writeFile(tempEnvPath, `${content}\n${prefixedVars}`);
-      const originalEnvContent = readFileSync(tempEnvPath, 'utf8');
-      const envConfig = parse(originalEnvContent);
-      // Use dotenv-expand to expand the variables
-      const expandedConfig: any = expand({
-        parsed: envConfig,
-      });
-      for (let [key, value] of Object.entries(expandedConfig.parsed)) {
-        // Set secrets in GitHub Actions context
-        $.verbose = false;
-        let secret: any = value;
-        core.setSecret(secret);
-        $.verbose = true;
-        core.setOutput(key, value);
-        await $`echo ${key}=${value} >> ${gitEnvPath}`;
-        console.log(`Secrets set for ${key}`);
-      }
-      await fs.promises.unlink(tempEnvPath);
     }
+
+    const content: any = readFileSync(env_file, 'utf-8');
+
+    // Extract all variable names that don't start with TF_VAR
+    const nonTfVarNames: any = content.match(/^(?!TF_VAR_)[A-Z_]+(?==)/gm);
+    // Generate the prefixed variable declarations for non-TF_VAR variables
+    // remove element TF_VAR_PORT
+    let prefixedVars = nonTfVarNames
+      .map((varName: any) => {
+        const value = content.match(new RegExp(`^${varName}=(.*)$`, 'm'))[1];
+        return `TF_VAR_${varName}=${value}`;
+      })
+      .join('\n');
+    const projectHasBeenDefined = prefixedVars.match(/^TF_VAR_PROJECT=(.*)$/m);
+    const appNameHasBeenDefined = prefixedVars.match(/^TF_VAR_APP=(.*)$/m);
+    const portHasBeenDefined = prefixedVars.match(/^TF_VAR_PORT=(.*)$/m);
+    const gcpProjectIdhAsBeenDefined = prefixedVars.match(
+      /^TF_VAR_GCP_PROJECT_ID=(.*)$/m
+    );
+    if (!projectHasBeenDefined) {
+      const SRC = process.env.SRC;
+      const metaconfig = await verifyIfMetaJsonExists(SRC);
+      let name = metaconfig?.name || '';
+      await $`echo PROJECT=${name} >> ${gitEnvPath}`;
+      // add the project name to the .env file
+      prefixedVars += `\nTF_VAR_PROJECT=${name}`;
+    }
+    if (!appNameHasBeenDefined) {
+      const metaconfig = await verifyIfMetaJsonExists(currentPath);
+      let name = metaconfig?.name;
+      await $`echo APP=${name} >> ${gitEnvPath}`;
+      prefixedVars += `\nTF_VAR_APP=${name}`;
+    }
+    if (!gcpProjectIdhAsBeenDefined) {
+      const GCP_PROJECT_ID = process.env.GCP_PROJECT_ID;
+      await $`echo GCP_PROJECT_ID=${GCP_PROJECT_ID} >> ${gitEnvPath}`;
+      prefixedVars += `\nTF_VAR_GCP_PROJECT_ID=${GCP_PROJECT_ID}`;
+    }
+    if (!portHasBeenDefined) {
+      const { port }: any = await verifyIfMetaJsonExists(currentPath);
+      await $`echo PORT=${port} >> ${gitEnvPath}`;
+      prefixedVars += `\nTF_VAR_PORT=${port}`;
+    }
+    await $`rm -rf /tmp/.env.${APP}`;
+    // write content to /tmp/.env.APP_NAME and add prefixedVars at the end
+    const tempEnvPath = `/tmp/.env.${APP}`;
+    await fs.writeFile(tempEnvPath, `${content}\n${prefixedVars}`);
+    const originalEnvContent = readFileSync(tempEnvPath, 'utf8');
+    const envConfig = parse(originalEnvContent);
+    // Use dotenv-expand to expand the variables
+    const expandedConfig: any = expand({
+      parsed: envConfig,
+    });
+    for (let [key, value] of Object.entries(expandedConfig.parsed)) {
+      // Set secrets in GitHub Actions context
+      $.verbose = false;
+      let secret: any = value;
+      core.setSecret(secret);
+      $.verbose = true;
+      core.setOutput(key, value);
+      await $`echo ${key}=${value} >> ${gitEnvPath}`;
+      console.log(`Secrets set for ${key}`);
+    }
+    await fs.promises.unlink(tempEnvPath);
+
     // Clean up the temporary env file
   }
 } catch (error) {
