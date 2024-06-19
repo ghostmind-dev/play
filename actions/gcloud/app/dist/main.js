@@ -40190,7 +40190,7 @@ try {
   await $`sudo apt-get update`;
   await $`curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg`;
   await $`echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list`;
-  await $`sudo apt-get update && apt-get install -y google-cloud-cli`;
+  await $`sudo apt-get update && sudo apt-get install -y google-cloud-cli`;
   if (login === "true") {
     const GCP_SERVICE_ACCOUNT_ADMIN = service_account_key || process.env.GCP_SERVICE_ACCOUNT_ADMIN;
     const GCP_PROJECT_NAME = gcp_project_name || process.env.GCP_PROJECT_NAME;
