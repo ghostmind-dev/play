@@ -19,7 +19,7 @@ try {
 
   cd('/tmp');
   await $`wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip`;
-  await $`unzip terraform_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip -d /usr/bin`;
+  await $`sudo unzip terraform_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip -d /usr/bin`;
 } catch (error) {
   core.setFailed(error.message);
 }
