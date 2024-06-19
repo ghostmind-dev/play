@@ -20,8 +20,10 @@ try {
   await $`sudo chown root:root /usr/bin/vault`;
 
   if (login === 'true') {
-    const VAULT_TOKEN = token || process.env.VAULT_ROOT_TOKEN;
-    const VAULT_ADDR = addrr || process.env.VAULT_ADDR;
+    const VAULT_TOKEN =
+      token == '' || undefined ? process.env.VAULT_ROOT_TOKEN : token;
+    const VAULT_ADDR =
+      addrr == '' || undefined ? process.env.VAULT_ADDR : addrr;
 
     await $`vault login "${VAULT_TOKEN}" -address="${VAULT_ADDR}" -non-interactive=true --no-print=true >/dev/null 2>&1`;
   }
