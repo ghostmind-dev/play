@@ -234,6 +234,7 @@ try {
     }
     if (!gcpProjectIdhAsBeenDefined) {
       const GCP_PROJECT_ID = process.env.GCP_PROJECT_ID;
+      core.setSecret('GCP_PROJECT_ID');
       await $`echo GCP_PROJECT_ID=${GCP_PROJECT_ID} >> ${gitEnvPath}`;
       prefixedVars += `\nTF_VAR_GCP_PROJECT_ID=${GCP_PROJECT_ID}`;
     }
