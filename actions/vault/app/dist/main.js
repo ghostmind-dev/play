@@ -40186,12 +40186,12 @@ try {
   const HOME = process.env.HOME;
   const SRC = process.env.SRC;
   $.verbose = true;
-  await $`apt-get update`;
+  await $`sudo apt-get update`;
   await $`curl https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg`;
   await $`gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint`;
   await $`echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list`;
-  await $`apt-get update`;
-  await $`apt-get install --reinstall -y vault`;
+  await $`sudo apt-get update`;
+  await $`sudo apt-get install --reinstall -y vault`;
   await $`chown root:root /usr/bin/vault`;
   if (login === "true") {
     const VAULT_TOKEN = token || process.env.VAULT_ROOT_TOKEN;
