@@ -1,6 +1,11 @@
 name: Testing github actions 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths: 
+      - 'actions/vault/**'  
 env:
   SRC: ${{github.workspace}}
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
