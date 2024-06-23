@@ -42808,7 +42808,7 @@ try {
       let base = metajson.secrets.base;
       await $`rm -rf /tmp/.env.base.${APP}`;
       await $`rm -rf /tmp/.env.target.${APP}`;
-      await $`vault kv get -format=json kv/${id}/base/secrets  > /tmp/.env.base.${APP}.json`;
+      await $`vault kv get -format=json kv/${id}/${base}/secrets  > /tmp/.env.base.${APP}.json`;
       const credsValueBase = await import_fs_extra.default.readJSONSync(`/tmp/.env.base.${APP}.json`);
       const { CREDS: creadsBase } = credsValueBase.data.data;
       import_fs_extra.default.writeFileSync(`/tmp/.env.base.${APP}`, creadsBase, "utf8");

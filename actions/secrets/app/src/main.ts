@@ -166,7 +166,7 @@ try {
       await $`rm -rf /tmp/.env.base.${APP}`;
       await $`rm -rf /tmp/.env.target.${APP}`;
 
-      await $`vault kv get -format=json kv/${id}/base/secrets  > /tmp/.env.base.${APP}.json`;
+      await $`vault kv get -format=json kv/${id}/${base}/secrets  > /tmp/.env.base.${APP}.json`;
       const credsValueBase = await fs.readJSONSync(
         `/tmp/.env.base.${APP}.json`
       );
