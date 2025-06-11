@@ -2,11 +2,9 @@ import { $, cd } from 'npm:zx';
 import type { CustomArgs, CustomOptions } from 'jsr:@ghostmind/run';
 
 export default async function (_arg: CustomArgs, opts: CustomOptions) {
-  const { utils, currentPath } = opts;
+  const { cmd, currentPath } = opts;
 
   cd(`${currentPath}/app`);
-
-  const { cmd } = utils;
 
   await $`bun install`;
 

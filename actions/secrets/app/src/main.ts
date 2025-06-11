@@ -136,8 +136,6 @@ try {
     const gitEnvPathRaw = await $`echo $GITHUB_ENV`;
     const gitEnvPath = `${gitEnvPathRaw}`.replace(/(\r\n|\n|\r)/gm, '');
     for (let [key, value] of Object.entries(expandedConfig.parsed)) {
-      console.log(`Setting secret for ${key}`);
-      console.log(`Setting secret for ${value}`);
       // Set secrets in GitHub Actions context
       $.verbose = false;
       let secret: any = value;
@@ -145,7 +143,6 @@ try {
       $.verbose = true;
       core.setOutput(key, value);
       await $`echo ${key}=${value} >> ${gitEnvPath}`;
-      console.log(`Secrets set for ${key}`);
     }
   } else {
     // generqta a random string
@@ -261,7 +258,6 @@ try {
       $.verbose = true;
       core.setOutput(key, value);
       await $`echo ${key}=${value} >> ${gitEnvPath}`;
-      console.log(`Secrets set for ${key}`);
     }
     await fs.promises.unlink(tempEnvPath);
 
