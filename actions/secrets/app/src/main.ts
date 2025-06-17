@@ -135,14 +135,17 @@ try {
     });
     const gitEnvPathRaw = await $`echo $GITHUB_ENV`;
     const gitEnvPath = `${gitEnvPathRaw}`.replace(/(\r\n|\n|\r)/gm, '');
+
+    // First, set all secrets to ensure they are masked in logs
     for (let [key, value] of Object.entries(expandedConfig.parsed)) {
-      // Set secrets in GitHub Actions context
-      $.verbose = false;
-      let secret: any = value;
-      core.setSecret(secret);
-      $.verbose = true;
+      core.setSecret(String(value));
+    }
+
+    // Then process them (now they will be masked)
+    for (let [key, value] of Object.entries(expandedConfig.parsed)) {
       core.setOutput(key, value);
-      await $`echo ${key}=${value} >> ${gitEnvPath}`;
+      // Use fs.appendFileSync instead of shell echo to avoid command line exposure
+      fs.appendFileSync(gitEnvPath, `${key}=${value}\n`);
     }
   } else {
     // generqta a random string
@@ -219,25 +222,25 @@ try {
       const SRC = process.env.SRC;
       const metaconfig = await verifyIfMetaJsonExists(SRC);
       let name = metaconfig?.name || '';
-      await $`echo PROJECT=${name} >> ${gitEnvPath}`;
+      fs.appendFileSync(gitEnvPath, `PROJECT=${name}\n`);
       // add the project name to the .env file
       prefixedVars += `\nTF_VAR_PROJECT=${name}`;
     }
     if (!appNameHasBeenDefined) {
       const metaconfig = await verifyIfMetaJsonExists(directory);
       let name = metaconfig?.name;
-      await $`echo APP=${name} >> ${gitEnvPath}`;
+      fs.appendFileSync(gitEnvPath, `APP=${name}\n`);
       prefixedVars += `\nTF_VAR_APP=${name}`;
     }
     if (!gcpProjectIdhAsBeenDefined) {
       const GCP_PROJECT_ID = process.env.GCP_PROJECT_ID;
-      core.setSecret('GCP_PROJECT_ID');
-      await $`echo GCP_PROJECT_ID=${GCP_PROJECT_ID} >> ${gitEnvPath}`;
+      core.setSecret(String(GCP_PROJECT_ID));
+      fs.appendFileSync(gitEnvPath, `GCP_PROJECT_ID=${GCP_PROJECT_ID}\n`);
       prefixedVars += `\nTF_VAR_GCP_PROJECT_ID=${GCP_PROJECT_ID}`;
     }
     if (!portHasBeenDefined) {
       const { port }: any = await verifyIfMetaJsonExists(directory);
-      await $`echo PORT=${port} >> ${gitEnvPath}`;
+      fs.appendFileSync(gitEnvPath, `PORT=${port}\n`);
       prefixedVars += `\nTF_VAR_PORT=${port}`;
     }
     await $`rm -rf /tmp/.env.${APP}`;
@@ -250,14 +253,17 @@ try {
     const expandedConfig: any = expand({
       parsed: envConfig,
     });
+
+    // First, set all secrets to ensure they are masked in logs
     for (let [key, value] of Object.entries(expandedConfig.parsed)) {
-      // Set secrets in GitHub Actions context
-      $.verbose = false;
-      let secret: any = value;
-      core.setSecret(secret);
-      $.verbose = true;
+      core.setSecret(String(value));
+    }
+
+    // Then process them (now they will be masked)
+    for (let [key, value] of Object.entries(expandedConfig.parsed)) {
       core.setOutput(key, value);
-      await $`echo ${key}=${value} >> ${gitEnvPath}`;
+      // Use fs.appendFileSync instead of shell echo to avoid command line exposure
+      fs.appendFileSync(gitEnvPath, `${key}=${value}\n`);
     }
     await fs.promises.unlink(tempEnvPath);
 

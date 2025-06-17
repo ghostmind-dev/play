@@ -362,8 +362,7 @@ var require_v35 = __commonJS((exports) => {
     }
     try {
       generateUUID.name = name;
-    } catch (err) {
-    }
+    } catch (err) {}
     generateUUID.DNS = DNS;
     generateUUID.URL = URL2;
     return generateUUID;
@@ -922,8 +921,7 @@ var require_tunnel = __commonJS((exports) => {
       console.error.apply(console, args);
     };
   } else {
-    debug = function() {
-    };
+    debug = function() {};
   }
   exports.debug = debug;
 });
@@ -1351,8 +1349,7 @@ var require_util = __commonJS((exports, module) => {
   var { stringify } = __require("querystring");
   var { headerNameLowerCasedRecord } = require_constants();
   var [nodeMajor, nodeMinor] = process.versions.node.split(".").map((v) => Number(v));
-  function nop() {
-  }
+  function nop() {}
   function isStream(obj) {
     return obj && typeof obj === "object" && typeof obj.pipe === "function" && typeof obj.on === "function";
   }
@@ -1929,8 +1926,7 @@ var require_PartStream = __commonJS((exports, module) => {
     ReadableStream2.call(this, opts);
   }
   inherits(PartStream, ReadableStream2);
-  PartStream.prototype._read = function(n) {
-  };
+  PartStream.prototype._read = function(n) {};
   module.exports = PartStream;
 });
 
@@ -2057,8 +2053,7 @@ var require_Dicer = __commonJS((exports, module) => {
   var B_ONEDASH = Buffer.from("-");
   var B_CRLF = Buffer.from(`\r
 `);
-  var EMPTY_FN = function() {
-  };
+  var EMPTY_FN = function() {};
   function Dicer(cfg) {
     if (!(this instanceof Dicer)) {
       return new Dicer(cfg);
@@ -2375,8 +2370,7 @@ var require_decodeText = __commonJS((exports, module) => {
       if (textDecoders.has(exports.toString())) {
         try {
           return textDecoders.get(exports).decode(data);
-        } catch {
-        }
+        } catch {}
       }
       return typeof data === "string" ? data : data.toString();
     }
@@ -3269,8 +3263,7 @@ var require_multipart = __commonJS((exports, module) => {
     this.truncated = false;
   }
   inherits(FileStream, Readable);
-  FileStream.prototype._read = function(n) {
-  };
+  FileStream.prototype._read = function(n) {};
   module.exports = Multipart;
 });
 
@@ -3951,8 +3944,7 @@ var require_util2 = __commonJS((exports, module) => {
     crypto = __require("crypto");
     const possibleRelevantHashes = ["sha256", "sha384", "sha512"];
     supportedHashes = crypto.getHashes().filter((hash) => possibleRelevantHashes.includes(hash));
-  } catch {
-  }
+  } catch {}
   function responseURL(response) {
     const urlList = response.urlList;
     const length = urlList.length;
@@ -4309,8 +4301,7 @@ var require_util2 = __commonJS((exports, module) => {
     }
     return true;
   }
-  function tryUpgradeRequestToAPotentiallyTrustworthyURL(request) {
-  }
+  function tryUpgradeRequestToAPotentiallyTrustworthyURL(request) {}
   function sameOrigin(A, B) {
     if (A.origin === B.origin && A.origin === "null") {
       return true;
@@ -5513,8 +5504,7 @@ var require_body = __commonJS((exports, module) => {
           controller.enqueue(typeof source === "string" ? textEncoder.encode(source) : source);
           queueMicrotask(() => readableStreamClose(controller));
         },
-        start() {
-        },
+        start() {},
         type: undefined
       });
     }
@@ -6516,8 +6506,7 @@ var require_connect = __commonJS((exports, module) => {
   }
   function setupTimeout(onConnectTimeout2, timeout) {
     if (!timeout) {
-      return () => {
-      };
+      return () => {};
     }
     let s1 = null;
     let s2 = null;
@@ -6959,8 +6948,7 @@ var require_RedirectHandler = __commonJS((exports, module) => {
       }
     }
     onData(chunk) {
-      if (this.location) {
-      } else {
+      if (this.location) {} else {
         return this.handler.onData(chunk);
       }
     }
@@ -7333,8 +7321,7 @@ var require_client = __commonJS((exports, module) => {
       const origin = opts.origin || this[kUrl].origin;
       const request = this[kHTTPConnVersion] === "h2" ? Request[kHTTP2BuildRequest](origin, opts, handler) : Request[kHTTP1BuildRequest](origin, opts, handler);
       this[kQueue].push(request);
-      if (this[kResuming]) {
-      } else if (util.bodyLength(request.body) == null && util.isIterable(request.body)) {
+      if (this[kResuming]) {} else if (util.bodyLength(request.body) == null && util.isIterable(request.body)) {
         this[kResuming] = 1;
         process.nextTick(resume, this);
       } else {
@@ -7953,8 +7940,7 @@ var require_client = __commonJS((exports, module) => {
         });
       });
       if (client.destroyed) {
-        util.destroy(socket.on("error", () => {
-        }), new ClientDestroyedError);
+        util.destroy(socket.on("error", () => {}), new ClientDestroyedError);
         return;
       }
       client[kConnecting] = false;
@@ -9362,8 +9348,7 @@ var require_readable = __commonJS((exports, module) => {
   var kBody = Symbol("kBody");
   var kAbort = Symbol("abort");
   var kContentType = Symbol("kContentType");
-  var noop = () => {
-  };
+  var noop = () => {};
   module.exports = class BodyReadable extends Readable {
     constructor({
       resume,
@@ -9539,8 +9524,7 @@ var require_readable = __commonJS((exports, module) => {
       });
     }
     consume2.stream.resume();
-    while (consume2.stream.read() != null) {
-    }
+    while (consume2.stream.read() != null) {}
   }
   function consumeEnd(consume2) {
     const { type, body, resolve, stream, length } = consume2;
@@ -9624,8 +9608,7 @@ var require_util3 = __commonJS((exports, module) => {
         process.nextTick(callback, new ResponseStatusCodeError(`Response status code ${statusCode}${statusMessage ? `: ${statusMessage}` : ""}`, statusCode, headers, payload));
         return;
       }
-    } catch (err) {
-    }
+    } catch (err) {}
     process.nextTick(callback, new ResponseStatusCodeError(`Response status code ${statusCode}${statusMessage ? `: ${statusMessage}` : ""}`, statusCode, headers));
   }
   module.exports = { getResolveErrorBodyCallback };
@@ -10627,8 +10610,7 @@ var require_mock_utils = __commonJS((exports, module) => {
       handler.onComplete(responseTrailers);
       deleteMockDispatch(mockDispatches, key);
     }
-    function resume() {
-    }
+    function resume() {}
     return true;
   }
   function buildMockDispatch() {
@@ -11208,8 +11190,7 @@ var require_proxy_agent = __commonJS((exports, module) => {
               }
             });
             if (statusCode !== 200) {
-              socket.on("error", () => {
-              }).destroy();
+              socket.on("error", () => {}).destroy();
               callback(new RequestAbortedError(`Proxy response (${statusCode}) !== 200 when HTTP Tunneling`));
             }
             if (opts2.protocol !== "https:") {
@@ -11626,8 +11607,7 @@ var require_headers = __commonJS((exports, module) => {
     }
     if (headers[kGuard] === "immutable") {
       throw new TypeError("immutable");
-    } else if (headers[kGuard] === "request-no-cors") {
-    }
+    } else if (headers[kGuard] === "request-no-cors") {}
     return headers[kHeadersList].append(name, value);
   }
 
@@ -11738,8 +11718,7 @@ var require_headers = __commonJS((exports, module) => {
       }
       if (this[kGuard] === "immutable") {
         throw new TypeError("immutable");
-      } else if (this[kGuard] === "request-no-cors") {
-      }
+      } else if (this[kGuard] === "request-no-cors") {}
       if (!this[kHeadersList].contains(name)) {
         return;
       }
@@ -11792,8 +11771,7 @@ var require_headers = __commonJS((exports, module) => {
       }
       if (this[kGuard] === "immutable") {
         throw new TypeError("immutable");
-      } else if (this[kGuard] === "request-no-cors") {
-      }
+      } else if (this[kGuard] === "request-no-cors") {}
       this[kHeadersList].set(name, value);
     }
     getSetCookie() {
@@ -12468,8 +12446,7 @@ var require_request2 = __commonJS((exports, module) => {
             } else if (getEventListeners(signal, "abort").length >= defaultMaxListeners) {
               setMaxListeners(100, signal);
             }
-          } catch {
-          }
+          } catch {}
           util.addAbortListener(signal, abort);
           requestFinalizer.register(ac, { signal, abort });
         }
@@ -13058,10 +13035,8 @@ var require_fetch = __commonJS((exports, module) => {
     if (!request.headersList.contains("accept-language")) {
       request.headersList.append("accept-language", "*");
     }
-    if (request.priority === null) {
-    }
-    if (subresourceSet.has(request.destination)) {
-    }
+    if (request.priority === null) {}
+    if (subresourceSet.has(request.destination)) {}
     mainFetch(fetchParams).catch((err) => {
       fetchParams.controller.terminate(err);
     });
@@ -13111,8 +13086,7 @@ var require_fetch = __commonJS((exports, module) => {
       return response;
     }
     if (response.status !== 0 && !response.internalResponse) {
-      if (request.responseTainting === "cors") {
-      }
+      if (request.responseTainting === "cors") {}
       if (request.responseTainting === "basic") {
         response = filterResponse(response, "basic");
       } else if (request.responseTainting === "cors") {
@@ -13248,8 +13222,7 @@ var require_fetch = __commonJS((exports, module) => {
         controller.enqueue(chunk);
       };
       const transformStream = new TransformStream({
-        start() {
-        },
+        start() {},
         transform: identityTransformAlgorithm,
         flush: processResponseEndOfBody
       }, {
@@ -13279,8 +13252,7 @@ var require_fetch = __commonJS((exports, module) => {
     let response = null;
     let actualResponse = null;
     const timingInfo = fetchParams.timingInfo;
-    if (request.serviceWorkers === "all") {
-    }
+    if (request.serviceWorkers === "all") {}
     if (response === null) {
       if (request.redirect === "follow") {
         request.serviceWorkers = "none";
@@ -13394,8 +13366,7 @@ var require_fetch = __commonJS((exports, module) => {
     if (contentLengthHeaderValue != null) {
       httpRequest.headersList.append("content-length", contentLengthHeaderValue);
     }
-    if (contentLength != null && httpRequest.keepalive) {
-    }
+    if (contentLength != null && httpRequest.keepalive) {}
     if (httpRequest.referrer instanceof URL) {
       httpRequest.headersList.append("referer", isomorphicEncode(httpRequest.referrer.href));
     }
@@ -13429,22 +13400,18 @@ var require_fetch = __commonJS((exports, module) => {
       }
     }
     httpRequest.headersList.delete("host");
-    if (includeCredentials) {
-    }
+    if (includeCredentials) {}
     if (httpCache == null) {
       httpRequest.cache = "no-store";
     }
-    if (httpRequest.mode !== "no-store" && httpRequest.mode !== "reload") {
-    }
+    if (httpRequest.mode !== "no-store" && httpRequest.mode !== "reload") {}
     if (response == null) {
       if (httpRequest.mode === "only-if-cached") {
         return makeNetworkError("only if cached");
       }
       const forwardResponse = await httpNetworkFetch(httpFetchParams, includeCredentials, isNewConnectionFetch);
-      if (!safeMethodsSet.has(httpRequest.method) && forwardResponse.status >= 200 && forwardResponse.status <= 399) {
-      }
-      if (revalidatingFlag && forwardResponse.status === 304) {
-      }
+      if (!safeMethodsSet.has(httpRequest.method) && forwardResponse.status >= 200 && forwardResponse.status <= 399) {}
+      if (revalidatingFlag && forwardResponse.status === 304) {}
       if (response == null) {
         response = forwardResponse;
       }
@@ -13470,8 +13437,7 @@ var require_fetch = __commonJS((exports, module) => {
       fetchParams.controller.connection.destroy();
       response = await httpNetworkOrCacheFetch(fetchParams, isAuthenticationFetch, true);
     }
-    if (isAuthenticationFetch) {
-    }
+    if (isAuthenticationFetch) {}
     return response;
   }
   async function httpNetworkFetch(fetchParams, includeCredentials = false, forceNewConnection = false) {
@@ -13494,9 +13460,7 @@ var require_fetch = __commonJS((exports, module) => {
       request.cache = "no-store";
     }
     const newConnection = forceNewConnection ? "yes" : "no";
-    if (request.mode === "websocket") {
-    } else {
-    }
+    if (request.mode === "websocket") {} else {}
     let requestBody = null;
     if (request.body == null && fetchParams.processRequestEndOfBody) {
       queueMicrotask(() => fetchParams.processRequestEndOfBody());
@@ -13711,9 +13675,7 @@ var require_fetch = __commonJS((exports, module) => {
             status,
             statusText,
             headersList: headers[kHeadersList],
-            body: decoders.length ? pipeline(this.body, ...decoders, () => {
-            }) : this.body.on("error", () => {
-            })
+            body: decoders.length ? pipeline(this.body, ...decoders, () => {}) : this.body.on("error", () => {})
           });
           return true;
         },
@@ -15968,8 +15930,7 @@ var require_connection = __commonJS((exports, module) => {
   var crypto;
   try {
     crypto = __require("crypto");
-  } catch {
-  }
+  } catch {}
   function establishWebSocketConnection(url, protocols, ws, onEstablish, options) {
     const requestURL = url;
     requestURL.protocol = url.protocol === "ws:" ? "http:" : "https:";
@@ -16095,8 +16056,7 @@ var require_frame = __commonJS((exports, module) => {
   var crypto;
   try {
     crypto = __require("crypto");
-  } catch {
-  }
+  } catch {}
 
   class WebsocketFrameSend {
     constructor(data) {
@@ -16458,8 +16418,7 @@ var require_websocket = __commonJS((exports, module) => {
           throw new DOMException2(`Reason must be less than 123 bytes; received ${reasonByteLength}`, "SyntaxError");
         }
       }
-      if (this[kReadyState] === WebSocket.CLOSING || this[kReadyState] === WebSocket.CLOSED) {
-      } else if (!isEstablished(this)) {
+      if (this[kReadyState] === WebSocket.CLOSING || this[kReadyState] === WebSocket.CLOSED) {} else if (!isEstablished(this)) {
         failWebsocketConnection(this, "Connection was closed before it was established.");
         this[kReadyState] = WebSocket.CLOSING;
       } else if (!isClosing(this)) {
@@ -17439,8 +17398,7 @@ var require_lib = __commonJS((exports) => {
               response.result = obj;
             }
             response.headers = res.message.headers;
-          } catch (err) {
-          }
+          } catch (err) {}
           if (statusCode > 299) {
             let msg;
             if (obj && obj.message) {
@@ -22231,8 +22189,7 @@ var require_vendor = __commonJS((exports, module) => {
           errorHandler = handler;
         }
       }
-      function noop5() {
-      }
+      function noop5() {}
       function Task() {
         this.value = null;
         this.callback = noop5;
@@ -22503,8 +22460,7 @@ var require_vendor = __commonJS((exports, module) => {
           this._reader = new async_1.default(this._root, this._settings);
           this._stream = new stream_1.Readable({
             objectMode: true,
-            read: () => {
-            },
+            read: () => {},
             destroy: () => {
               if (!this._reader.isDestroyed) {
                 this._reader.destroy();
@@ -23149,8 +23105,7 @@ var require_vendor = __commonJS((exports, module) => {
           const root = this._getRootDirectory(task);
           const options = this._getReaderOptions(task);
           const source = this.api(root, task, options);
-          const destination = new stream_1.Readable({ objectMode: true, read: () => {
-          } });
+          const destination = new stream_1.Readable({ objectMode: true, read: () => {} });
           source.once("error", (error) => destination.emit("error", error)).on("data", (entry) => destination.emit("data", options.transform(entry))).once("end", () => destination.emit("end"));
           destination.once("close", () => source.destroy());
           return destination;
@@ -29568,8 +29523,7 @@ ${end.comment}` : end.comment;
                 break loop;
             }
           }
-        while (((_a2 = prev[++i]) == null ? undefined : _a2.type) === "space") {
-        }
+        while (((_a2 = prev[++i]) == null ? undefined : _a2.type) === "space") {}
         return prev.splice(i, prev.length);
       }
       function fixFlowSeqItems(fc) {
@@ -30519,8 +30473,7 @@ ${end.comment}` : end.comment;
       };
       try {
         process.cwd();
-      } catch (er) {
-      }
+      } catch (er) {}
       if (typeof process.chdir === "function") {
         chdir = process.chdir;
         process.chdir = function(d2) {
@@ -30562,16 +30515,14 @@ ${end.comment}` : end.comment;
             if (cb)
               process.nextTick(cb);
           };
-          fs6.lchmodSync = function() {
-          };
+          fs6.lchmodSync = function() {};
         }
         if (fs6.chown && !fs6.lchown) {
           fs6.lchown = function(path2, uid, gid, cb) {
             if (cb)
               process.nextTick(cb);
           };
-          fs6.lchownSync = function() {
-          };
+          fs6.lchownSync = function() {};
         }
         if (platform === "win32") {
           fs6.rename = typeof fs6.rename !== "function" ? fs6.rename : function(fs$rename) {
@@ -30663,8 +30614,7 @@ ${end.comment}` : end.comment;
               if (threw) {
                 try {
                   fs7.closeSync(fd);
-                } catch (er) {
-                }
+                } catch (er) {}
               } else {
                 fs7.closeSync(fd);
               }
@@ -30700,8 +30650,7 @@ ${end.comment}` : end.comment;
                 if (threw) {
                   try {
                     fs7.closeSync(fd);
-                  } catch (er) {
-                  }
+                  } catch (er) {}
                 } else {
                   fs7.closeSync(fd);
                 }
@@ -30713,8 +30662,7 @@ ${end.comment}` : end.comment;
               if (cb)
                 process.nextTick(cb);
             };
-            fs7.lutimesSync = function() {
-            };
+            fs7.lutimesSync = function() {};
           }
         }
         function chmodFix(orig) {
@@ -30948,8 +30896,7 @@ ${end.comment}` : end.comment;
         gracefulQueue = "___graceful-fs.queue";
         previousSymbol = "___graceful-fs.previous";
       }
-      function noop5() {
-      }
+      function noop5() {}
       function publishQueue(context, queue2) {
         Object.defineProperty(context, gracefulQueue, {
           get: function() {
@@ -31990,8 +31937,7 @@ GFS4: `);
           let stats;
           try {
             stats = yield fs6.stat(file);
-          } catch (e) {
-          }
+          } catch (e) {}
           if (stats && stats.isFile())
             return;
           const dir = path2.dirname(file);
@@ -32018,8 +31964,7 @@ GFS4: `);
         let stats;
         try {
           stats = fs6.statSync(file);
-        } catch (e) {
-        }
+        } catch (e) {}
         if (stats && stats.isFile())
           return;
         const dir = path2.dirname(file);
@@ -32054,8 +31999,7 @@ GFS4: `);
           let dstStat;
           try {
             dstStat = yield fs6.lstat(dstpath);
-          } catch (e) {
-          }
+          } catch (e) {}
           let srcStat;
           try {
             srcStat = yield fs6.lstat(srcpath);
@@ -32077,8 +32021,7 @@ GFS4: `);
         let dstStat;
         try {
           dstStat = fs6.lstatSync(dstpath);
-        } catch (e) {
-        }
+        } catch (e) {}
         try {
           const srcStat = fs6.lstatSync(srcpath);
           if (dstStat && areIdentical(srcStat, dstStat))
@@ -32223,8 +32166,7 @@ GFS4: `);
           let stats;
           try {
             stats = yield fs6.lstat(dstpath);
-          } catch (e) {
-          }
+          } catch (e) {}
           if (stats && stats.isSymbolicLink()) {
             const [srcStat, dstStat] = yield Promise.all([
               fs6.stat(srcpath),
@@ -32247,8 +32189,7 @@ GFS4: `);
         let stats;
         try {
           stats = fs6.lstatSync(dstpath);
-        } catch (e) {
-        }
+        } catch (e) {}
         if (stats && stats.isSymbolicLink()) {
           const srcStat = fs6.statSync(srcpath);
           const dstStat = fs6.statSync(dstpath);
@@ -32824,8 +32765,7 @@ GFS4: `);
       I = 97;
       M = 122;
       $ = E((u2) => u2 | 32, "lower");
-      m = E(() => {
-      }, "noop");
+      m = E(() => {}, "noop");
       F = class F2 {
         constructor(a2) {
           this.index = 0, this.flags = 0, this.onHeaderEnd = m, this.onHeaderField = m, this.onHeadersEnd = m, this.onHeaderValue = m, this.onPartBegin = m, this.onPartData = m, this.onPartEnd = m, this.boundaryChars = {}, a2 = `\r
@@ -32976,8 +32916,7 @@ GFS4: `);
       (function(a2, u2) {
         u2(o3);
       })(n, function(a2) {
-        function u2() {
-        }
+        function u2() {}
         n2(u2, "noop");
         function l2(e) {
           return typeof e == "object" && e !== null || typeof e == "function";
@@ -32987,8 +32926,7 @@ GFS4: `);
         function h(e, t4) {
           try {
             Object.defineProperty(e, "name", { value: t4, configurable: true });
-          } catch (e2) {
-          }
+          } catch (e2) {}
         }
         n2(h, "setFunctionName");
         const g3 = Promise, A2 = Promise.prototype.then, w2 = Promise.reject.bind(g3);
@@ -33274,8 +33212,7 @@ GFS4: `);
         }
         n2($t, "defaultReaderBrandCheckException");
         const Hi = Object.getPrototypeOf(Object.getPrototypeOf(function() {
-          return __asyncGenerator(this, null, function* () {
-          });
+          return __asyncGenerator(this, null, function* () {});
         }).prototype || {}), yn = class yn2 {
           constructor(t4, r) {
             this._ongoingPromise = undefined, this._isFinished = false, this._reader = t4, this._preventCancel = r;
@@ -33854,8 +33791,7 @@ GFS4: `);
         function aa(e, t4, r) {
           const s2 = Object.create(te.prototype);
           let f3, c, d2;
-          t4.start !== undefined ? f3 = n2(() => t4.start(s2), "startAlgorithm") : f3 = n2(() => {
-          }, "startAlgorithm"), t4.pull !== undefined ? c = n2(() => t4.pull(s2), "pullAlgorithm") : c = n2(() => T2(undefined), "pullAlgorithm"), t4.cancel !== undefined ? d2 = n2((R3) => t4.cancel(R3), "cancelAlgorithm") : d2 = n2(() => T2(undefined), "cancelAlgorithm");
+          t4.start !== undefined ? f3 = n2(() => t4.start(s2), "startAlgorithm") : f3 = n2(() => {}, "startAlgorithm"), t4.pull !== undefined ? c = n2(() => t4.pull(s2), "pullAlgorithm") : c = n2(() => T2(undefined), "pullAlgorithm"), t4.cancel !== undefined ? d2 = n2((R3) => t4.cancel(R3), "cancelAlgorithm") : d2 = n2(() => T2(undefined), "cancelAlgorithm");
           const m2 = t4.autoAllocateChunkSize;
           if (m2 === 0)
             throw new TypeError("autoAllocateChunkSize must be greater than 0");
@@ -34380,8 +34316,7 @@ GFS4: `);
         function Ia(e, t4, r, s2) {
           const f3 = Object.create(ke.prototype);
           let c, d2, m2, R3;
-          t4.start !== undefined ? c = n2(() => t4.start(f3), "startAlgorithm") : c = n2(() => {
-          }, "startAlgorithm"), t4.write !== undefined ? d2 = n2((y) => t4.write(y, f3), "writeAlgorithm") : d2 = n2(() => T2(undefined), "writeAlgorithm"), t4.close !== undefined ? m2 = n2(() => t4.close(), "closeAlgorithm") : m2 = n2(() => T2(undefined), "closeAlgorithm"), t4.abort !== undefined ? R3 = n2((y) => t4.abort(y), "abortAlgorithm") : R3 = n2(() => T2(undefined), "abortAlgorithm"), Lo(e, f3, c, d2, m2, R3, r, s2);
+          t4.start !== undefined ? c = n2(() => t4.start(f3), "startAlgorithm") : c = n2(() => {}, "startAlgorithm"), t4.write !== undefined ? d2 = n2((y) => t4.write(y, f3), "writeAlgorithm") : d2 = n2(() => T2(undefined), "writeAlgorithm"), t4.close !== undefined ? m2 = n2(() => t4.close(), "closeAlgorithm") : m2 = n2(() => T2(undefined), "closeAlgorithm"), t4.abort !== undefined ? R3 = n2((y) => t4.abort(y), "abortAlgorithm") : R3 = n2(() => T2(undefined), "abortAlgorithm"), Lo(e, f3, c, d2, m2, R3, r, s2);
         }
         n2(Ia, "SetUpWritableStreamDefaultControllerFromUnderlyingSink");
         function Jt(e) {
@@ -34685,8 +34620,7 @@ GFS4: `);
             } else
               eo(r, t4), Tt(this);
           }
-          [kr]() {
-          }
+          [kr]() {}
         };
         n2(Cn, "ReadableStreamDefaultController");
         let ne = Cn;
@@ -34773,8 +34707,7 @@ GFS4: `);
         function Ka(e, t4, r, s2) {
           const f3 = Object.create(ne.prototype);
           let c, d2, m2;
-          t4.start !== undefined ? c = n2(() => t4.start(f3), "startAlgorithm") : c = n2(() => {
-          }, "startAlgorithm"), t4.pull !== undefined ? d2 = n2(() => t4.pull(f3), "pullAlgorithm") : d2 = n2(() => T2(undefined), "pullAlgorithm"), t4.cancel !== undefined ? m2 = n2((R3) => t4.cancel(R3), "cancelAlgorithm") : m2 = n2(() => T2(undefined), "cancelAlgorithm"), Qo(e, f3, c, d2, m2, r, s2);
+          t4.start !== undefined ? c = n2(() => t4.start(f3), "startAlgorithm") : c = n2(() => {}, "startAlgorithm"), t4.pull !== undefined ? d2 = n2(() => t4.pull(f3), "pullAlgorithm") : d2 = n2(() => T2(undefined), "pullAlgorithm"), t4.cancel !== undefined ? m2 = n2((R3) => t4.cancel(R3), "cancelAlgorithm") : m2 = n2(() => T2(undefined), "cancelAlgorithm"), Qo(e, f3, c, d2, m2, r, s2);
         }
         n2(Ka, "SetUpReadableStreamDefaultControllerFromUnderlyingSource");
         function ir(e) {
@@ -34821,8 +34754,7 @@ GFS4: `);
             return B2;
           }
           n2(Oe, "cancel2Algorithm");
-          function Te() {
-          }
+          function Te() {}
           return n2(Te, "startAlgorithm"), y = Ct(Te, ae, nt), C3 = Ct(Te, ae, Oe), I2(r._closedPromise, (x2) => (oe(y._readableStreamController, x2), oe(C3._readableStreamController, x2), (!c || !d2) && P2(undefined), null)), [y, C3];
         }
         n2(Xa, "ReadableStreamDefaultTee");
@@ -34919,8 +34851,7 @@ GFS4: `);
             return B2;
           }
           n2(J, "cancel2Algorithm");
-          function Ce() {
-          }
+          function Ce() {}
           return n2(Ce, "startAlgorithm"), y = Go(Ce, Te, N2), C3 = Go(Ce, x2, J), ae(t4), [y, C3];
         }
         n2(es, "ReadableByteStreamTee");
@@ -36109,8 +36040,7 @@ Content-Type: ${p.type || "application/octet-stream"}\r
         try {
           const i = __require("process"), { emitWarning: o3 } = i;
           try {
-            i.emitWarning = () => {
-            }, Object.assign(globalThis, __require("stream/web")), i.emitWarning = o3;
+            i.emitWarning = () => {}, Object.assign(globalThis, __require("stream/web")), i.emitWarning = o3;
           } catch (a2) {
             throw i.emitWarning = o3, a2;
           }
@@ -36129,8 +36059,7 @@ Content-Type: ${p.type || "application/octet-stream"}\r
             });
           } });
         }, "name"));
-      } catch (e) {
-      }
+      } catch (e) {}
       hi = 65536;
       n2(qn, "toIterator");
       pi = (Ve = class {
@@ -36435,8 +36364,7 @@ Content-Type: ${p.type || "application/octet-stream"}\r
       };
       n2(Nn, "Body");
       Ue = Nn;
-      Ue.prototype.buffer = (0, import_node_util2.deprecate)(Ue.prototype.buffer, "Please use 'response.arrayBuffer()' instead of 'response.buffer()'", "node-fetch#buffer"), Object.defineProperties(Ue.prototype, { body: { enumerable: true }, bodyUsed: { enumerable: true }, arrayBuffer: { enumerable: true }, blob: { enumerable: true }, json: { enumerable: true }, text: { enumerable: true }, data: { get: (0, import_node_util2.deprecate)(() => {
-      }, "data doesn't exist, use json(), text(), arrayBuffer(), or body instead", "https://github.com/node-fetch/node-fetch/issues/1000 (response)") } });
+      Ue.prototype.buffer = (0, import_node_util2.deprecate)(Ue.prototype.buffer, "Please use 'response.arrayBuffer()' instead of 'response.buffer()'", "node-fetch#buffer"), Object.defineProperties(Ue.prototype, { body: { enumerable: true }, bodyUsed: { enumerable: true }, arrayBuffer: { enumerable: true }, blob: { enumerable: true }, json: { enumerable: true }, text: { enumerable: true }, data: { get: (0, import_node_util2.deprecate)(() => {}, "data doesn't exist, use json(), text(), arrayBuffer(), or body instead", "https://github.com/node-fetch/node-fetch/issues/1000 (response)") } });
       n2(In, "consumeBody");
       Fn = n2((i, o3) => {
         let a2, u2, { body: l2 } = i[H];
@@ -36629,8 +36557,7 @@ Content-Type: ${p.type || "application/octet-stream"}\r
       n2(sl, "parseReferrerPolicyFromHeader");
       $2 = Symbol("Request internals");
       At = n2((i) => typeof i == "object" && typeof i[$2] == "object", "isRequest");
-      ll = (0, import_node_util2.deprecate)(() => {
-      }, ".data is not a valid RequestInit property, use .body instead", "https://github.com/node-fetch/node-fetch/issues/1000 (request)");
+      ll = (0, import_node_util2.deprecate)(() => {}, ".data is not a valid RequestInit property, use .body instead", "https://github.com/node-fetch/node-fetch/issues/1000 (request)");
       vr = class vr2 extends Ue {
         constructor(o3, a2 = {}) {
           let u2;
@@ -36815,8 +36742,7 @@ Content-Type: ${p.type || "application/octet-stream"}\r
         return !W(this).canceled;
       }, set returnValue(i) {
         i || Pi(W(this));
-      }, initEvent() {
-      } }, Object.defineProperty(ht.prototype, "constructor", { value: ht, configurable: true, writable: true }), typeof window < "u" && typeof window.Event < "u" && (Object.setPrototypeOf(ht.prototype, window.Event.prototype), Dn.set(window.Event.prototype, ht));
+      }, initEvent() {} }, Object.defineProperty(ht.prototype, "constructor", { value: ht, configurable: true, writable: true }), typeof window < "u" && typeof window.Event < "u" && (Object.setPrototypeOf(ht.prototype, window.Event.prototype), Dn.set(window.Event.prototype, ht));
       n2(vi, "defineRedirectDescriptor");
       n2(gl, "defineCallDescriptor");
       n2(_l, "defineWrapper");
@@ -37596,8 +37522,7 @@ Content-Type: ${p.type || "application/octet-stream"}\r
       stream.destroy(error);
     }
   };
-  var noop = () => {
-  };
+  var noop = () => {};
   var updateMaxListeners = (passThroughStream, increment) => {
     const maxListeners = passThroughStream.getMaxListeners();
     if (maxListeners !== 0 && maxListeners !== Number.POSITIVE_INFINITY) {
@@ -37924,8 +37849,7 @@ Content-Type: ${p.type || "application/octet-stream"}\r
   var import_node_events2 = __toESM2(__require("events"), 1);
   var import_node_stream3 = __require("stream");
   var import_node_stream2 = __require("stream");
-  var noop2 = () => {
-  };
+  var noop2 = () => {};
   var isPromiseLike = (value) => typeof (value == null ? undefined : value.then) === "function";
   var assign = (target, ...extras) => Object.defineProperties(target, extras.reduce((m2, extra) => __spreadValues(__spreadValues({}, m2), Object.fromEntries(Object.entries(Object.getOwnPropertyDescriptors(extra)).filter(([, v2]) => !Object.prototype.hasOwnProperty.call(v2, "value") || v2.value !== undefined))), {}));
   var buildCmd = (quote2, pieces, args, subs = substitute) => {
@@ -38609,8 +38533,7 @@ Content-Type: ${p.type || "application/octet-stream"}\r
       }
     };
   }
-  var proto = Object.defineProperties(() => {
-  }, __spreadProps(__spreadValues({}, styles2), {
+  var proto = Object.defineProperties(() => {}, __spreadProps(__spreadValues({}, styles2), {
     level: {
       enumerable: true,
       get() {
@@ -38825,8 +38748,7 @@ Content-Type: ${p.type || "application/octet-stream"}\r
   var import_node_events3 = __toESM2(__require("events"), 1);
   var import_node_stream8 = __require("stream");
   var import_node_stream7 = __require("stream");
-  var noop3 = () => {
-  };
+  var noop3 = () => {};
   var assign2 = (target, ...extras) => Object.defineProperties(target, extras.reduce((m2, extra) => __spreadValues(__spreadValues({}, m2), Object.fromEntries(Object.entries(Object.getOwnPropertyDescriptors(extra)).filter(([, v2]) => !Object.hasOwn(v2, "value") || v2.value !== undefined))), {}));
   var normalizeCtx2 = (...ctxs) => assign2({
     id: Math.random().toString(36).slice(2),
@@ -39149,8 +39071,7 @@ Content-Type: ${p.type || "application/octet-stream"}\r
     });
     return { resolve, reject, promise };
   };
-  var noop4 = () => {
-  };
+  var noop4 = () => {};
   var identity = (v2) => v2;
   var ts_default = { lookup, kill, tree };
   var createRequire3 = import_create_require.default;
@@ -39275,8 +39196,7 @@ var require_util8 = __commonJS((exports, module) => {
       import_vendor.fs.writeFileSync(filepath, data);
     return filepath;
   }
-  function noop() {
-  }
+  function noop() {}
   function randomId() {
     return Math.random().toString(36).slice(2);
   }
@@ -39748,8 +39668,7 @@ var require_core2 = __commonJS((exports, module) => {
   });
   try {
     useBash();
-  } catch (err) {
-  }
+  } catch (err) {}
   var ProcessPromise = class _ProcessPromise extends Promise {
     constructor() {
       super(...arguments);
@@ -40033,16 +39952,14 @@ var require_core2 = __commonJS((exports, module) => {
       for (const p of children) {
         try {
           process.kill(+p.pid, signal);
-        } catch (e) {
-        }
+        } catch (e) {}
       }
       try {
         process.kill(-pid, signal);
       } catch (e) {
         try {
           process.kill(+pid, signal);
-        } catch (e2) {
-        }
+        } catch (e2) {}
       }
     });
   }
