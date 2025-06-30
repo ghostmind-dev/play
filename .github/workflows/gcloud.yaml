@@ -1,4 +1,4 @@
-name: Testing github actions 
+name: gcloud
 on:
   workflow_dispatch:
 env:
@@ -20,7 +20,9 @@ jobs:
           dev_mode: "true"
       - uses: ./actions/vault
       - name: 'set global secrets'
-        run: run action secrets set --global
+        uses: ./actions/secrets
+        with:
+          global: "true"
       - uses: ./actions/gcloud
         with:
           login: "true"
