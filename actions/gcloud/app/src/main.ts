@@ -18,11 +18,11 @@ try {
   await $`sudo apt-get update && sudo apt-get install -y google-cloud-cli`;
 
   if (login === 'true') {
-    const GCP_SERVICE_ACCOUNT_ADMIN =
-      service_account_key || process.env.GCP_SERVICE_ACCOUNT_ADMIN;
+    const GCP_SERVICE_ACCOUNT_JSON =
+      service_account_key || process.env.GCP_SERVICE_ACCOUNT_JSON;
     const GCP_PROJECT_NAME = gcp_project_name || process.env.GCP_PROJECT_NAME;
 
-    await $`echo ${GCP_SERVICE_ACCOUNT_ADMIN} | base64 -di -w 0 >/tmp/gsa_key.json`;
+    await $`echo ${GCP_SERVICE_ACCOUNT_JSON} >/tmp/gsa_key.json`;
     await $`gcloud auth activate-service-account --key-file="/tmp/gsa_key.json"`;
     await $`gcloud config set project ${GCP_PROJECT_NAME}`;
     await $`gcloud config set compute/zone us-central1-b`;

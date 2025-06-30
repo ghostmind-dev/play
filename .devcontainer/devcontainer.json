@@ -6,11 +6,18 @@
       "PROJECT_DIR": "${env:HOME}${env:USERPROFILE}/projects/container/play"
     }
   },
-  "overrideCommand": false,
-  "containerUser": "vscode",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/ghostmind-dev/features/extensions:1.0.0": {},
+    "ghcr.io/ghostmind-dev/features/bun:1": {},
+    "ghcr.io/ghostmind-dev/features/zsh:1.0.6": {
+      "theme": "spaceship"
+    }
+  },
   "postStartCommand": "deno run --allow-all https://raw.githubusercontent.com/ghostmind-dev/init/main/init/main.ts",
   "postCreateCommand": "deno run --allow-all /usr/local/share/post-attach.ts",
-  "remoteUser": "vscode",
   "remoteEnv": {
     "SRC": "${containerWorkspaceFolder}",
     "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
@@ -22,52 +29,17 @@
     "INIT_RESET_LIVE": "true"
   },
   "mounts": [
-    "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind",
     "source=ghostmind-play-history,target=/commandhistory,type=volume",
     "source=${env:HOME}${env:USERPROFILE}/projects/container/play,target=/Users/francoisseguin/projects/container/play,type=bind"
   ],
   "runArgs": [
     "--cap-add=CAP_IPC_LOCK",
     "--cap-add=NET_ADMIN",
-    "--network=host",
     "--name=devcontainer-play"
   ],
   "customizations": {
     "vscode": {
-      "extensions": [
-        "ms-azuretools.vscode-docker",
-        "ms-kubernetes-tools.vscode-kubernetes-tools",
-        "esbenp.prettier-vscode",
-        "humao.rest-client",
-        "sdras.inbedby7pm",
-        "william-voyek.vscode-nginx",
-        "foxundermoon.shell-format",
-        "hashicorp.terraform",
-        "mikestead.dotenv",
-        "hashicorp.hcl",
-        "equinusocio.vsc-material-theme",
-        "wesbos.theme-cobalt2",
-        "sumneko.lua",
-        "ghostmind.hide-unhide",
-        "tinkertrain.theme-panda",
-        "golang.go",
-        "yinfei.luahelper",
-        "graphql.vscode-graphql",
-        "graphql.vscode-graphql-syntax",
-        "jdinhlife.gruvbox",
-        "styled-components.vscode-styled-components",
-        "be5invis.vscode-icontheme-nomo-dark",
-        "pkief.material-icon-theme",
-        "mtxr.sqltools",
-        "ghostmind.mode-context",
-        "github.copilot-chat",
-        "github.copilot-nightly",
-        "ms-python.python",
-        "prisma.prisma",
-        "bradlc.vscode-tailwindcss",
-        "mariorodeghiero.vue-theme",
-        "denoland.vscode-deno"
-      ]
+      "extensions": []
     }
   }
 }
