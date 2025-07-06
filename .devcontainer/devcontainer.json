@@ -1,23 +1,21 @@
 {
   "name": "play",
   "build": {
-    "dockerfile": "Dockerfile",
-    "args": {
-      "PROJECT_DIR": "${env:HOME}${env:USERPROFILE}/projects/container/play"
-    }
+    "dockerfile": "Dockerfile"
   },
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {},
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
-    "ghcr.io/ghostmind-dev/features/extensions:1.0.0": {},
-    "ghcr.io/ghostmind-dev/features/bun:1": {},
-    "ghcr.io/ghostmind-dev/features/zsh:1.0.6": {
-      "theme": "spaceship"
+    "ghcr.io/ghostmind-dev/features/extensions:latest": {},
+    "ghcr.io/ghostmind-dev/features/themes:latest": {},
+    "ghcr.io/ghostmind-dev/features/settings:1.0.4": {},
+    "ghcr.io/ghostmind-dev/features/zsh:latest": {
+      "theme": "codespaces"
     }
   },
-  "postStartCommand": "deno run --allow-all https://raw.githubusercontent.com/ghostmind-dev/init/main/init/main.ts",
-  "postCreateCommand": "deno run --allow-all /usr/local/share/post-attach.ts",
+  "postStartCommand": "deno run -A -r jsr:@ghostmind/init",
+  "postCreateCommand": "deno run -A /usr/local/share/post-attach.ts",
   "remoteEnv": {
     "SRC": "${containerWorkspaceFolder}",
     "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
@@ -29,17 +27,21 @@
     "INIT_RESET_LIVE": "true"
   },
   "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
     "source=ghostmind-play-history,target=/commandhistory,type=volume",
     "source=${env:HOME}${env:USERPROFILE}/projects/container/play,target=/Users/francoisseguin/projects/container/play,type=bind"
   ],
   "runArgs": [
     "--cap-add=CAP_IPC_LOCK",
     "--cap-add=NET_ADMIN",
-    "--name=devcontainer-play"
+    "--network=host",
+    "--name=play"
   ],
   "customizations": {
     "vscode": {
-      "extensions": []
+      "extensions": [
+        "ghostmind.hide-unhide"
+      ]
     }
   }
 }
