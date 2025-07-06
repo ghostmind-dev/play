@@ -40314,7 +40314,6 @@ try {
     await $`gcloud config set project ${GCP_PROJECT_NAME}`;
     await $`gcloud config set compute/zone us-central1-b`;
     await $`gcloud auth configure-docker gcr.io --quiet`;
-    await $`rm -f /tmp/gsa_key.json`;
   }
 } catch (error) {
   import_core.default.setFailed(error.message);

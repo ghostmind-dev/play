@@ -57,9 +57,6 @@ try {
     await $`gcloud config set project ${GCP_PROJECT_NAME}`;
     await $`gcloud config set compute/zone us-central1-b`;
     await $`gcloud auth configure-docker gcr.io --quiet`;
-
-    // Clean up the sensitive file
-    await $`rm -f /tmp/gsa_key.json`;
   }
 } catch (error) {
   core.setFailed(error.message);
