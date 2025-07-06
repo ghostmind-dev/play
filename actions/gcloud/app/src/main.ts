@@ -1,5 +1,6 @@
 import core from '@actions/core';
 import { $ } from 'zx';
+import { writeFileSync } from 'fs';
 
 try {
   const login = core.getInput('login');
@@ -22,11 +23,43 @@ try {
       service_account_key || process.env.GCP_SERVICE_ACCOUNT_JSON;
     const GCP_PROJECT_NAME = gcp_project_name || process.env.GCP_PROJECT_NAME;
 
-    await $`echo ${GCP_SERVICE_ACCOUNT_JSON} >/tmp/gsa_key.json`;
+    // Clean up the service account JSON - remove any surrounding quotes
+    let cleanedServiceAccountJson = GCP_SERVICE_ACCOUNT_JSON?.trim();
+    if (
+      cleanedServiceAccountJson?.startsWith("'") &&
+      cleanedServiceAccountJson?.endsWith("'")
+    ) {
+      cleanedServiceAccountJson = cleanedServiceAccountJson.slice(1, -1);
+    }
+    if (
+      cleanedServiceAccountJson?.startsWith('"') &&
+      cleanedServiceAccountJson?.endsWith('"')
+    ) {
+      cleanedServiceAccountJson = cleanedServiceAccountJson.slice(1, -1);
+    }
+
+    // Validate it's proper JSON
+    try {
+      JSON.parse(cleanedServiceAccountJson);
+    } catch (e) {
+      throw new Error(`Invalid service account JSON: ${e.message}`);
+    }
+
+    // Use Node.js fs to write sensitive data instead of shell command to prevent logging
+    console.log('Writing service account key to file...');
+    writeFileSync('/tmp/gsa_key.json', cleanedServiceAccountJson);
+
+    // Temporarily disable verbose for sensitive gcloud commands
+    $.verbose = false;
     await $`gcloud auth activate-service-account --key-file="/tmp/gsa_key.json"`;
+    $.verbose = true;
+
     await $`gcloud config set project ${GCP_PROJECT_NAME}`;
     await $`gcloud config set compute/zone us-central1-b`;
     await $`gcloud auth configure-docker gcr.io --quiet`;
+
+    // Clean up the sensitive file
+    await $`rm -f /tmp/gsa_key.json`;
   }
 } catch (error) {
   core.setFailed(error.message);

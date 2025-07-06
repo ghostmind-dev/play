@@ -40278,6 +40278,7 @@ var {
 } = await Promise.resolve().then(() => __toESM(require_build(), 1));
 
 // src/main.ts
+import { writeFileSync } from "fs";
 try {
   const login = import_core.default.getInput("login");
   const service_account_key = import_core.default.getInput("service_account_key");
@@ -40293,11 +40294,27 @@ try {
   if (login === "true") {
     const GCP_SERVICE_ACCOUNT_JSON = service_account_key || process.env.GCP_SERVICE_ACCOUNT_JSON;
     const GCP_PROJECT_NAME = gcp_project_name || process.env.GCP_PROJECT_NAME;
-    await $`echo ${GCP_SERVICE_ACCOUNT_JSON} >/tmp/gsa_key.json`;
+    let cleanedServiceAccountJson = GCP_SERVICE_ACCOUNT_JSON?.trim();
+    if (cleanedServiceAccountJson?.startsWith("'") && cleanedServiceAccountJson?.endsWith("'")) {
+      cleanedServiceAccountJson = cleanedServiceAccountJson.slice(1, -1);
+    }
+    if (cleanedServiceAccountJson?.startsWith('"') && cleanedServiceAccountJson?.endsWith('"')) {
+      cleanedServiceAccountJson = cleanedServiceAccountJson.slice(1, -1);
+    }
+    try {
+      JSON.parse(cleanedServiceAccountJson);
+    } catch (e) {
+      throw new Error(`Invalid service account JSON: ${e.message}`);
+    }
+    console.log("Writing service account key to file...");
+    writeFileSync("/tmp/gsa_key.json", cleanedServiceAccountJson);
+    $.verbose = false;
     await $`gcloud auth activate-service-account --key-file="/tmp/gsa_key.json"`;
+    $.verbose = true;
     await $`gcloud config set project ${GCP_PROJECT_NAME}`;
     await $`gcloud config set compute/zone us-central1-b`;
     await $`gcloud auth configure-docker gcr.io --quiet`;
+    await $`rm -f /tmp/gsa_key.json`;
   }
 } catch (error) {
   import_core.default.setFailed(error.message);
