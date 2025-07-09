@@ -4,7 +4,7 @@ on:
 env:
   SRC: ${{github.workspace}}
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
-  VAULT_ROOT_TOKEN: ${{ secrets.VAULT_ROOT_TOKEN }}
+  VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
   VAULT_ADDR: ${{ secrets.VAULT_ADDR}}
 jobs:
   terraform:
