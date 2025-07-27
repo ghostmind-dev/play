@@ -4,6 +4,8 @@ import type { CustomArgs, CustomOptions } from 'jsr:@ghostmind/run';
 export default async function (_arg: CustomArgs, opts: CustomOptions) {
   const { cmd, currentPath } = opts;
 
+  $.verbose = true;
+
   cd(`${currentPath}/app`);
 
   await $`bun install`;

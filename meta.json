@@ -11,7 +11,7 @@
     "hasura_dev": "cd ${SRC}/actions/hasura && run custom dev --all",
     "run_build": "cd ${SRC}/actions/run && run custom build",
     "run_dev": "cd ${SRC}/actions/run && run custom dev --all",
-    "sectets_dev": "cd ${SRC}/actions/secrets && run custom dev --all",
+    "secrets_dev": "cd ${SRC}/actions/secrets && run custom dev --all",
     "secrets_build": "cd ${SRC}/actions/secrets && run custom build",
     "terraform_build": "cd ${SRC}/actions/terraform && run custom build",
     "terraform_dev": "cd ${SRC}/actions/terraform && run custom dev --all",

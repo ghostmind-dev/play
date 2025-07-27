@@ -212,6 +212,8 @@ try {
         return `TF_VAR_${varName}=${value}`;
       })
       .join('\n');
+
+    let injectedVars = '';
     const projectHasBeenDefined = prefixedVars.match(/^TF_VAR_PROJECT=(.*)$/m);
     const appNameHasBeenDefined = prefixedVars.match(/^TF_VAR_APP=(.*)$/m);
     const portHasBeenDefined = prefixedVars.match(/^TF_VAR_PORT=(.*)$/m);
@@ -225,28 +227,37 @@ try {
       fs.appendFileSync(gitEnvPath, `PROJECT=${name}\n`);
       // add the project name to the .env file
       prefixedVars += `\nTF_VAR_PROJECT=${name}`;
+      injectedVars += `\nPROJECT=${name}`;
     }
     if (!appNameHasBeenDefined) {
       const metaconfig = await verifyIfMetaJsonExists(directory);
       let name = metaconfig?.name;
       fs.appendFileSync(gitEnvPath, `APP=${name}\n`);
       prefixedVars += `\nTF_VAR_APP=${name}`;
+      injectedVars += `\nAPP=${name}`;
     }
     if (!gcpProjectIdhAsBeenDefined) {
       const GCP_PROJECT_ID = process.env.GCP_PROJECT_ID;
       core.setSecret(String(GCP_PROJECT_ID));
       fs.appendFileSync(gitEnvPath, `GCP_PROJECT_ID=${GCP_PROJECT_ID}\n`);
       prefixedVars += `\nTF_VAR_GCP_PROJECT_ID=${GCP_PROJECT_ID}`;
+      injectedVars += `\nGCP_PROJECT_ID=${GCP_PROJECT_ID}`;
     }
     if (!portHasBeenDefined) {
       const { port }: any = await verifyIfMetaJsonExists(directory);
       fs.appendFileSync(gitEnvPath, `PORT=${port}\n`);
       prefixedVars += `\nTF_VAR_PORT=${port}`;
+      injectedVars += `\nPORT=${port}`;
     }
     await $`rm -rf /tmp/.env.${APP}`;
     // write content to /tmp/.env.APP_NAME and add prefixedVars at the end
     const tempEnvPath = `/tmp/.env.${APP}`;
-    await fs.writeFile(tempEnvPath, `${content}\n${prefixedVars}`);
+
+    await fs.writeFile(
+      tempEnvPath,
+      `${content}\n${prefixedVars}\n${injectedVars}`
+    );
+
     const originalEnvContent = readFileSync(tempEnvPath, 'utf8');
     const envConfig = parse(originalEnvContent);
     // Use dotenv-expand to expand the variables
