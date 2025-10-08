@@ -13,3 +13,4 @@ This repository contains a collection of custom GitHub Actions designed to strea
 | hasura            | install hasura cli          |
 | Install Run utils | Install Run utils           |
 | terraform         | install terraform and login |
+| firebase          | install firebase and deploy |
