@@ -80,3 +80,9 @@ node_modules
 
 
 .history
+
+.mcp.json
+
+mpc.json
+
+.claude
