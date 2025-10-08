@@ -9,6 +9,8 @@
     "gcloud_dev": "cd ${SRC}/actions/gcloud && run custom dev --all",
     "hasura_build": "cd ${SRC}/actions/hasura && run custom build",
     "hasura_dev": "cd ${SRC}/actions/hasura && run custom dev --all",
+    "firebase_build": "cd ${SRC}/actions/firebase && run custom build",
+    "firebase_dev": "cd ${SRC}/actions/firebase && run custom dev --all",
     "run_build": "cd ${SRC}/actions/run && run custom build",
     "run_dev": "cd ${SRC}/actions/run && run custom dev --all",
     "secrets_dev": "cd ${SRC}/actions/secrets && run custom dev --all",

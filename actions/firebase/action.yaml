@@ -1,0 +1,24 @@
+name: "firebase"
+description: "install firebase and deploy"
+inputs:
+  command:
+    description: "co/mmand to run"
+    required: true
+    default: "deploy --only hosting"
+  token: 
+    description: "firebase token (optional if FIREBASE_TOKEN env var is set)"
+    required: false
+  project_id:
+    description: "firebase project id"
+    required: true
+  region:
+    description: "firebase region"
+    required: false
+    default: "us-central1" 
+  dir: 
+    description: "firebase directory"
+    required: false
+    default: "."
+runs:
+  using: "node20"
+  main: "app/dist/main.js"

@@ -1,0 +1,11 @@
+{
+    "hosting": {
+        "site": "${CHANGE_TO_TEST_PROJECT_NAME}",
+        "public": "public",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ]
+    }
+}

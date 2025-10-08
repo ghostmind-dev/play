@@ -1,0 +1,11 @@
+{
+  "name": "firebase",
+  "type": "module",
+  "description": "install firebase and deploy",
+  "version": "1.0.0",
+  "main": "main.js",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "zx": "^8.0.2"
+  }
+}

@@ -1,0 +1,31 @@
+name: firebase
+on:
+  workflow_dispatch:
+env:
+  SRC: ${{github.workspace}}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+  VAULT_ADDR: ${{ secrets.VAULT_ADDR}}
+jobs:
+  firebase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out repository"
+        uses: actions/checkout@v3
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: canary
+      - uses: ./actions/run
+        with:
+          dev_mode: "true"
+      - uses: ./actions/vault
+      - name: "set global secrets"
+        uses: ./actions/secrets
+        with:
+          global: "true"
+      - uses: ./actions/firebase
+        with:
+          command: "use"
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          project_id: system-documents
+          dir: ${{ github.workspace }}/actions/firebase/test
