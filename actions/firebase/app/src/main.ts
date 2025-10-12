@@ -24,6 +24,8 @@ try {
     cd(dir);
   }
 
+  await $`mkdir -p public`;
+
   // Handle Firebase token - use input if provided, otherwise check environment variable
   const existingToken = process.env.FIREBASE_TOKEN;
   const token = tokenInput || existingToken;

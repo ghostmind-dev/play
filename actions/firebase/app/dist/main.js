@@ -41215,6 +41215,7 @@ try {
     console.log(`\uD83D\uDCC1 Changing to directory: ${dir}`);
     cd(dir);
   }
+  await $`mkdir -p public`;
   const existingToken = process.env.FIREBASE_TOKEN;
   const token = tokenInput || existingToken;
   if (!token) {
