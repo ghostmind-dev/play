@@ -49,12 +49,15 @@ try {
     await $`firebase use ${project_id}`;
   }
 
+  // Split command using space as the delimiter
+  const splitCommands = command.split(' ');
+
   // Run the Firebase command
   console.log(`🚀 Running Firebase command: ${command}`);
-  await $`firebase ${command}`;
+  await $`firebase ${[...splitCommands]}`;
 
   console.log('✅ Firebase deployment completed successfully!');
-} catch (error) {
+} catch (error: any) {
   console.error('❌ Firebase deployment failed:', error.message);
   core.setFailed(error.message);
 }

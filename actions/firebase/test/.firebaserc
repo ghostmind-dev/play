@@ -1,5 +1,5 @@
 {
   "projects": {
-    "default": "system-documents"
+    "default": "${CHANGE_TO_TEST_PROJECT_NAME}"
   }
 }

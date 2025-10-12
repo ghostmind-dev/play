@@ -41231,8 +41231,9 @@ try {
     console.log(`\uD83C\uDFAF Setting Firebase project: ${project_id}`);
     await $`firebase use ${project_id}`;
   }
+  const splitCommands = command.split(" ");
   console.log(`\uD83D\uDE80 Running Firebase command: ${command}`);
-  await $`firebase ${command}`;
+  await $`firebase ${[...splitCommands]}`;
   console.log("✅ Firebase deployment completed successfully!");
 } catch (error) {
   console.error("❌ Firebase deployment failed:", error.message);
